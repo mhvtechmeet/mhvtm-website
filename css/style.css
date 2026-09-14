@@ -3,89 +3,158 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #f4f6f7;
   color: #333;
 }
 
+/* ---------- Header ---------- */
+
 header {
-  background: #005f6b;
-  color: #fff;
-  padding: 20px 0;
+  background: #ffffff;
+  color: #333;
   text-align: center;
+  padding: 35px 20px 30px;
+  border-bottom: 4px solid #005f6b;
 }
 
 header h1 {
   margin: 0;
-  font-size: 3rem;
-  line-height: 1.2;
-}
-
-header p {
-  margin-top: 0.25rem;
-  font-size: 1.1rem;
-  line-height: 1.4;
-}
-
-h2 {
   color: #005f6b;
+  font-size: 3rem;
+  line-height: 1.15;
+  font-weight: 700;
 }
 
-h2.special {
-  color: #fff;
-  font-size: 2rem;
-  line-height: 1.2;
-  margin-bottom: 0.25rem;
+header .tagline {
+  margin: 8px 0 18px;
+  color: #666;
+  font-size: 1.15rem;
+  font-style: italic;
 }
 
-section {
-  padding: 20px;
-  margin: 20px auto;
-  background: #fff;
-  border-radius: 8px;
-  max-width: 900px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+header .event-year {
+  display: inline-block;
+  margin: 5px 0 10px;
+  padding: 5px 18px;
+  background: #e9f7f6;
+  color: #005f6b;
+  border-radius: 20px;
+  font-size: 1.05rem;
+  font-weight: bold;
 }
+
+header h2 {
+  margin: 5px 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+/* ---------- Navigation ---------- */
 
 nav {
-  background: #004b53;
+  background: #005f6b;
   text-align: center;
-  padding: 10px;
+  padding: 11px 10px;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  margin: 0 12px;
+  margin: 0 14px;
   font-weight: bold;
+  font-size: 0.95rem;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  color: #d1e7e3;
 }
+
+/* ---------- Main sections ---------- */
+
+section {
+  padding: 24px 28px;
+  margin: 22px auto;
+  background: #fff;
+  border-radius: 8px;
+  max-width: 900px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid transparent;
+}
+
+section:hover {
+  border-left-color: #008fc5;
+}
+
+h2 {
+  color: #005f6b;
+  margin-top: 0;
+}
+
+h3 {
+  color: #444;
+}
+
+/* ---------- Event information ---------- */
+
+.event-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.info-card {
+  padding: 16px;
+  background: #f1f8f8;
+  border-radius: 7px;
+  border-top: 3px solid #008fc5;
+}
+
+.info-card h3 {
+  margin-top: 0;
+  color: #005f6b;
+  font-size: 1rem;
+}
+
+.info-card p {
+  margin-bottom: 0;
+}
+
+/* ---------- Buttons ---------- */
 
 .button {
   display: inline-block;
-  padding: 10px 20px;
-  text-align: center;
-  margin: 10px 0;
+  padding: 11px 22px;
+  margin: 8px 5px;
   background-color: #005f6b;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
 }
 
 .button:hover {
   background-color: #004b53;
 }
 
-.center {
-  text-align: center;
+/* ---------- Dates ---------- */
+
+.dates {
+  border-left: 4px solid #e84b3c;
+  padding: 5px 0 5px 18px;
 }
+
+.dates p {
+  margin: 8px 0;
+}
+
+/* ---------- Committee ---------- */
 
 .committee {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 15px;
+  gap: 12px;
 }
 
 .committee div {
@@ -96,22 +165,49 @@ nav a:hover {
 
 .committee div:nth-child(odd) {
   background: #d1e7e3;
+  font-weight: bold;
 }
+
+/* ---------- Utilities ---------- */
+
+.center {
+  text-align: center;
+}
+
+a {
+  color: #005f6b;
+}
+
+a:hover {
+  color: #008fc5;
+}
+
+/* ---------- Footer ---------- */
 
 footer {
   text-align: center;
-  padding: 10px;
+  padding: 18px;
+  margin-top: 35px;
   background: #005f6b;
   color: #fff;
 }
 
+footer h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* ---------- Mobile ---------- */
+
 @media (max-width: 700px) {
+
   header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
-  h2.special {
-    font-size: 1.5rem;
+  header h2 {
+    font-size: 1.4rem;
   }
 
   nav a {
@@ -119,12 +215,16 @@ footer {
     margin: 5px 8px;
   }
 
-  .committee {
+  section {
+    margin: 12px;
+    padding: 18px;
+  }
+
+  .event-info {
     grid-template-columns: 1fr;
   }
 
-  section {
-    margin: 10px;
-    padding: 15px;
+  .committee {
+    grid-template-columns: 1fr;
   }
 }
