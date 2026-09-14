@@ -13,40 +13,61 @@ header {
   background: #ffffff;
   color: #333;
   text-align: center;
-  padding: 35px 20px 30px;
+  padding: 18px 20px 16px;
   border-bottom: 4px solid #005f6b;
 }
 
-header h1 {
+.brand-lockup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  text-align: center;
+}
+
+.site-logo {
+  grid-column: 1;
+  justify-self: end;
+  display: block;
+  width: 110px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.brand-copy {
+  grid-column: 2;
+}
+
+.brand-copy h1 {
   margin: 0;
   color: #005f6b;
-  font-size: 3rem;
+  font-size: 2.35rem;
   line-height: 1.15;
   font-weight: 700;
 }
 
-header .tagline {
-  margin: 8px 0 18px;
+.brand-copy .tagline {
+  margin: 4px 0 0;
   color: #666;
   font-size: 1.15rem;
   font-style: italic;
+  text-align: center;
 }
 
-header .event-year {
+.landing-header .event-year {
   display: inline-block;
-  margin: 5px 0 10px;
-  padding: 5px 18px;
+  margin: 3px 0 7px;
+  padding: 4px 15px;
   background: #e9f7f6;
   color: #005f6b;
   border-radius: 20px;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: bold;
 }
 
-header h2 {
-  margin: 5px 0;
+.landing-header h2 {
+  margin: 3px 0;
   color: #333;
-  font-size: 1.8rem;
+  font-size: 1.45rem;
 }
 
 /* ---------- Navigation ---------- */
@@ -118,6 +139,48 @@ h3 {
 
 .info-card p {
   margin-bottom: 0;
+}
+
+/* ---------- Schedules and posters ---------- */
+
+.schedule {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) 2fr;
+  gap: 12px;
+}
+
+.schedule div {
+  padding: 10px;
+  background: #e9f7f6;
+  border-radius: 5px;
+}
+
+.schedule div:nth-child(odd) {
+  background: #d1e7e3;
+  font-weight: bold;
+}
+
+.poster-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.poster-card {
+  padding: 16px;
+  background: #f1f8f8;
+  border: 1px solid #d1e7e3;
+  border-radius: 7px;
+}
+
+.poster-card h4 {
+  margin: 8px 0;
+  color: #005f6b;
+  font-size: 1.05rem;
+}
+
+.poster-card p {
+  margin: 0;
 }
 
 /* ---------- Buttons ---------- */
@@ -202,12 +265,17 @@ footer h3 {
 
 @media (max-width: 700px) {
 
-  header h1 {
-    font-size: 2.2rem;
+  .site-logo {
+    width: 78px;
+    margin-right: 12px;
   }
 
-  header h2 {
-    font-size: 1.4rem;
+  .brand-copy h1 {
+    font-size: 1.8rem;
+  }
+
+  .landing-header h2 {
+    font-size: 1.2rem;
   }
 
   nav a {
@@ -220,10 +288,12 @@ footer h3 {
     padding: 18px;
   }
 
-  .event-info {
+  .event-info,
+  .poster-list {
     grid-template-columns: 1fr;
   }
 
+  .schedule,
   .committee {
     grid-template-columns: 1fr;
   }
