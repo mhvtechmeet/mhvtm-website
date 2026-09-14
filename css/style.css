@@ -1,0 +1,130 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background: #005f6b;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+header p {
+  margin-top: 0.25rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+h2 {
+  color: #005f6b;
+}
+
+h2.special {
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+section {
+  padding: 20px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 8px;
+  max-width: 900px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  background: #004b53;
+  text-align: center;
+  padding: 10px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  margin: 10px 0;
+  background-color: #005f6b;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #004b53;
+}
+
+.center {
+  text-align: center;
+}
+
+.committee {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 15px;
+}
+
+.committee div {
+  padding: 10px;
+  background: #e9f7f6;
+  border-radius: 5px;
+}
+
+.committee div:nth-child(odd) {
+  background: #d1e7e3;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #005f6b;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  h2.special {
+    font-size: 1.5rem;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 5px 8px;
+  }
+
+  .committee {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    margin: 10px;
+    padding: 15px;
+  }
+}
