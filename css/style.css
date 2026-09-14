@@ -349,17 +349,30 @@ footer h3 {
 
 @media (max-width: 700px) {
 
+  .brand-lockup {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
   .site-logo {
-    width: 78px;
-    margin-right: 12px;
+    grid-column: 1;
+    justify-self: center;
+    width: 80px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .brand-copy {
+    grid-column: 1;
+    text-align: center;
   }
 
   .brand-copy h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .landing-header h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   nav a {
@@ -381,5 +394,12 @@ footer h3 {
   .schedule,
   .committee {
     grid-template-columns: 1fr;
+  }
+
+  .back-to-top {
+    bottom: 16px;
+    right: 16px;
+    font-size: 0.8rem;
+    padding: 8px 12px;
   }
 }
