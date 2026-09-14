@@ -177,5 +177,13 @@
 </section>
 
 <footer><h3>Contact: mhvtechmeet@gmail.com</h3></footer>
+
+<a href="#" class="back-to-top" id="backToTop">▲ Top</a>
+<script>
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+</script>
 </body>
 </html>
