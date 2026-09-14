@@ -245,6 +245,61 @@ a:hover {
   color: #008fc5;
 }
 
+/* ---------- Poster tables ---------- */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.poster-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.poster-table th,
+.poster-table td {
+  padding: 10px;
+  border: 1px solid #d1e7e3;
+  text-align: left;
+  vertical-align: top;
+}
+
+.poster-table th {
+  background: #005f6b;
+  color: #fff;
+}
+
+.poster-table tbody tr:nth-child(even) {
+  background: #f1f8f8;
+}
+
+/* ---------- Photo gallery ---------- */
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.photo-gallery figure {
+  margin: 0;
+}
+
+.photo-gallery img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.photo-gallery figcaption {
+  padding-top: 7px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
 /* ---------- Footer ---------- */
 
 footer {
@@ -289,7 +344,8 @@ footer h3 {
   }
 
   .event-info,
-  .poster-list {
+  .poster-list,
+  .photo-gallery {
     grid-template-columns: 1fr;
   }
 

@@ -28,7 +28,16 @@
   <a href="about.html">About MHV TechMeet</a>
 </nav>
 
-<section>
+<p class="center">
+  <a href="#summary" class="button">Event Summary</a>
+  <a href="#gallery" class="button">Event Gallery</a>
+  <a href="#speaker" class="button">Featured Speaker</a>
+  <a href="#winners" class="button">Winning Posters</a>
+  <a href="#submitted-posters" class="button">Submitted Posters</a>
+  <a href="#steering" class="button">Steering Committee</a>
+</p>
+
+<section id="summary">
   <h2>Event Summary</h2>
   <p>
     The inaugural Mid-Hudson Valley TechMeet was held on November 8, 2024,
@@ -43,7 +52,21 @@
   </p>
 </section>
 
-<section>
+<section id="gallery">
+  <h2>2024 Event Gallery</h2>
+  <div class="photo-gallery">
+    <figure>
+      <img src="assets/2024/photo-1.jpg" alt="MHV TechMeet 2024 participants gathered for a group photo" loading="lazy">
+      <figcaption>Participants and organizers at the inaugural TechMeet.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/2024/photo-3.jpeg" alt="Attendees viewing student posters at MHV TechMeet 2024" loading="lazy">
+      <figcaption>Attendees viewing student poster presentations.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="speaker">
   <h2>Featured Speaker</h2>
   <p>
     Chris Berry, a Distinguished Engineer from IBM, presented
@@ -57,7 +80,7 @@
   </p>
 </section>
 
-<section>
+<section id="winners">
   <h2>Winning Posters</h2>
 
   <h3>AI and Machine Learning</h3>
@@ -85,7 +108,54 @@
   </div>
 </section>
 
-<section>
+<section id="submitted-posters">
+  <h2>Submitted Posters</h2>
+  <p>All poster projects submitted for the inaugural 2024 Mid-Hudson Valley TechMeet.</p>
+  <div class="table-wrapper">
+    <table class="poster-table">
+      <thead><tr><th>Category</th><th>Title</th><th>Institution</th><th>Authors</th></tr></thead>
+      <tbody>
+    <tr><td>AI/ML</td><td>MarketLens: AI Model for Learning and Predicting Financial Market Shifts</td><td>Volodymyr Didur</td><td>Bard College</td></tr>
+    <tr><td>AI/ML</td><td>CareConnect: AI App for Conversational Support and Assistance</td><td>Volodymyr Didur</td><td>Bard College</td></tr>
+    <tr><td>AI/ML</td><td>AI Explainability Techniques for Real-World Dynamic Tone Analysis</td><td>Christian Sarmiento; Luke Pecovic, Prof. Brian Gormanly</td><td>Marist College</td></tr>
+    <tr><td>AI/ML</td><td>LUROX D AI Prosthetic</td><td>Taheemuddin Ahmed; Wafi Danesh</td><td>SUNY New Paltz</td></tr>
+    <tr><td>AI/ML</td><td>Jeopardizing Language</td><td>Nicolas DeMilio; Dr. Ashley Suchy, Mostafa Ibrahim, Brian Abbott</td><td>SUNY New Paltz</td></tr>
+    <tr><td>AI/ML</td><td>Pyroxene: A Graph Based Programming Language Leveraging the LLVM</td><td>Daniel Gunther</td><td>SUNY New Paltz</td></tr>
+    <tr><td>AI/ML</td><td>Programming a Humanoid Robot</td><td>Isabelle Borgstedt; Isaac Rudnick, Ken Kabeya</td><td>Vassar College</td></tr>
+    <tr><td>AI/ML</td><td>Opening Minds with Conversational Large Language Models</td><td>Ian Ho; Jacqueline Adelmann ’26, Niranjan Baskaran, Prof. Joshua de Leeuw; Cognitive Science, Prof. Stephen Flusberg; Cognitive Science</td><td>Vassar College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Dark Web Scraping</td><td>Connor Eddy; Giuliano Piscitani</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Adaptive multi-stage cyberattacks using Bash Bunny</td><td>Josip Huzovic; Eric Guzman, Daniel Garcia, Casimer DeCusatis, Melissa Chodziutko</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Mac Malware Abstract</td><td>Julianna Russo; Frederick Berberich, Daniella Boulos, Christopher Driselle</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Quantum Computer Hybrid Cloud SOC Analytics As A Service</td><td>Justin Sterlacci; Evan Spillane, Kevin Gartner, Casimer DeCusatis</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Network Time Security Encryption of Precision Time Protocol</td><td>Luciano Mattoli; Cassidy Heulings, Clay Kaiser, Casimer DeCusatis</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>ECRL As A Service - Cloud in a Rack</td><td>Ryan Rosenkranse; Frederick Berberich, Chris Algozzine, Christy Schroeder</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Threat-Based Vulnerability Prioritization Through Prompt Engineering</td><td>Tristan Barboni; Jankarlo Villanueva, Hannah Gidos</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>Security Profiles for Linux with KVM Hypervisors</td><td>Zachary VanderVelden; Nicholas Philips, Nathaniel Desaney, Casimer DeCusatis, Fernando Pizzano</td><td>Marist College</td></tr>
+    <tr><td>Cybersecurity &amp; Cloud</td><td>NetScanLogger</td><td>Brian Abbott</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Self-Balancing Planar System: Exploring PID, Pole Placement, and LQR Controllers</td><td>Yiwen Jia</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Exploring Tensile Weakness of 3D-Printed Structures</td><td>Bianca Bermudez; Aileen Pastrana, Shaima Herzallah, Ping-Chuan Wang</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Thermal and Electrical Performance Optimization of Microstrip Transmission Lines for High-Power RF Applications</td><td>Julia Bossonis; Dr. Ping-Chuan Wang, Dr. Mohammad Zunoubi, Michael Taussig</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Generation of Polarization Entangled Photons from Silicon Microring Resonators</td><td>Emily Herbert; Alexander Miloshevsky, Hsuan-Hao Lu</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Applying Genetic Algorithms to Diffusiophoretic Microplastic Water Filtering</td><td>Benjamin Jon; Michael DeFreitas</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Techniques for measuring wind turbine noise</td><td>Casey Maracek; Heather Lai</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Numerical Computations of Advanced Water-Cooled Cold Plates for Thermal Management of Microchips with Hotspots</td><td>Matthew Selvaggio</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>Off-Grid Lighting Product</td><td>Shelly Yousoufoy; Joshua Vital</td><td>SUNY New Paltz</td></tr>
+    <tr><td>Engineering &amp; Technology</td><td>HLD Quick Start Wizard</td><td>Griffin Carey; Kevin Hayden</td><td>Marist College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Theorems on Equational Unification Problems in the Theory of Ordinary and Involutory Quandles: A Reduction to Matching and Structural Criteria for Solvability</td><td>Volodymyr Didur, Tamana Sultani, Renata Karpenko</td><td>Bard College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Unification Problem for Idempotent, Right Quasi Groups Is Decidable</td><td>Fatima Rahimi; Nyla, Lawrence</td><td>Bard College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Halide Exchange in Pb-Free CsMnX3 Perovskites with Trimethylsilyl Halide Reagents</td><td>Sasha Fraser; Timofey Semenov</td><td>Bard College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Inhibition of DHFR enzyme by Ruthenium Metal Complexes</td><td>William Chang; Freddy Coronel, Luke Collins, Mariam Morsy, Sage Saccomanno, Craig Anderson, Swapan Jain</td><td>Bard College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>The Leo Project: Cybersecurity for Clean Water Systems in Africa</td><td>Ryan Eager; Jackson Schlosser, Anthony Scappaticci, Nicholas Suchy, Nico Cornape-Martinez, Casimer DeCusatis, Carolyn Sher-DeCusatis, Esther Wekesa</td><td>Marist College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Modeling CaCO₃ Accretion on a Working Electrode via Controlled Electrochemistry</td><td>Kyle Kravitz; Rachmadian Wulandana, Julio Aguirre</td><td>SUNY New Paltz</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Data Analysis of Lakes</td><td>Cyrus Mika; Dr. David C. Richardson, Christopher Jamieson, Waheed Saroya</td><td>SUNY New Paltz</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Napari Plugin for Analyzing Fibers of Biological Micrographs</td><td>Filip Sakellariou; Irene Georgakoudi, Yuhang Fu</td><td>Vassar College</td></tr>
+    <tr><td>General Science &amp; Math</td><td>Biochemical Characterization of Spider Glue Droplet</td><td>Salih Awouda; Candido Diaz, John Long</td><td>Vassar College</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="steering">
   <h2>Steering Committee</h2>
   <div class="committee">
     <div><strong>IBM</strong></div><div>Preetha Natesan (Chair)<br>Natesan Venkateswaran</div>
