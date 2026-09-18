@@ -403,3 +403,25 @@ footer h3 {
     padding: 8px 12px;
   }
 }
+
+/* ---------- Schedule Table ---------- */
+
+.schedule-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 520px;
+  margin: 12px 0 20px;
+}
+
+.schedule-table td {
+  padding: 7px 14px;
+  border-bottom: 1px solid #dde3e7;
+  vertical-align: top;
+}
+
+.schedule-table td:first-child {
+  white-space: nowrap;
+  font-weight: bold;
+  color: #005f6b;
+  width: 130px;
+}
