@@ -429,7 +429,19 @@ footer h3 {
 /* ---------- Speaker Bio ---------- */
 
 .speaker-bio {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
   margin: 16px 0;
+}
+
+.speaker-photo {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #005f6b;
+  flex-shrink: 0;
 }
 
 .speaker-name {
