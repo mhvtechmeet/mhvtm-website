@@ -425,3 +425,22 @@ footer h3 {
   color: #005f6b;
   width: 130px;
 }
+
+/* ---------- Speaker Bio ---------- */
+
+.speaker-bio {
+  margin: 16px 0;
+}
+
+.speaker-name {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin: 0 0 2px;
+  color: #005f6b;
+}
+
+.speaker-role {
+  font-style: italic;
+  color: #555;
+  margin: 0 0 12px;
+}
