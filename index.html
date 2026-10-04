@@ -415,21 +415,23 @@
     btn.classList.toggle('visible', window.scrollY > 400);
   });
 
-  // Sidebar scroll-spy
+  // Sidebar scroll-spy — uses IntersectionObserver for accuracy
   const sideLinks = document.querySelectorAll('.sidenav a');
   const sections  = Array.from(sideLinks)
     .map(a => document.querySelector(a.getAttribute('href')))
     .filter(Boolean);
 
-  window.addEventListener('scroll', () => {
-    let current = sections[0];
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 80) current = s;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sideLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
     });
-    sideLinks.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
-    });
-  }, { passive: true });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
 </script>
 
 </body>
