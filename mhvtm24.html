@@ -28,14 +28,19 @@
   <a href="about.html">About MHV TechMeet</a>
 </nav>
 
-<p class="center">
-  <a href="#summary" class="button">Event Summary</a>
-  <a href="#gallery" class="button">Event Gallery</a>
-  <a href="#speaker" class="button">Featured Speaker</a>
-  <a href="#winners" class="button">Winning Posters</a>
-  <a href="#submitted-posters" class="button">Submitted Posters</a>
-  <a href="#steering" class="button">Steering Committee</a>
-</p>
+<div class="page-layout">
+
+  <aside class="sidenav">
+    <div class="sidenav-title">MHVTM 2024</div>
+    <a href="#summary">Event Summary</a>
+    <a href="#gallery">Event Gallery</a>
+    <a href="#speaker">Featured Speaker</a>
+    <a href="#winners">Winning Posters</a>
+    <a href="#submitted-posters">Submitted Posters</a>
+    <a href="#steering">Steering Committee</a>
+  </aside>
+
+  <div class="content-area">
 
 <section id="summary">
   <h2>Event Summary</h2>
@@ -176,6 +181,9 @@
   </p>
 </section>
 
+  </div><!-- end .content-area -->
+</div><!-- end .page-layout -->
+
 <footer><h3>Contact: mhvtechmeet@gmail.com</h3></footer>
 
 <a href="#" class="back-to-top" id="backToTop">▲ Top</a>
@@ -184,6 +192,14 @@
   window.addEventListener('scroll', () => {
     btn.classList.toggle('visible', window.scrollY > 400);
   });
+  const sideLinks = document.querySelectorAll('.sidenav a');
+  const sections  = Array.from(sideLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const observer  = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+    });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+  sections.forEach(s => observer.observe(s));
 </script>
 </body>
 </html>

@@ -35,8 +35,20 @@
   <a href="about.html">About MHV TechMeet</a>
 </nav>
 
+<div class="page-layout">
 
-<section>
+  <aside class="sidenav">
+    <div class="sidenav-title">About</div>
+    <a href="#about">About MHV TechMeet</a>
+    <a href="#beginnings">Our Beginnings</a>
+    <a href="#mission">Our Mission</a>
+    <a href="#founding">Founding Committee</a>
+    <a href="#history">Through the Years</a>
+  </aside>
+
+  <div class="content-area">
+
+<section id="about">
 
   <h2>About MHV TechMeet</h2>
 
@@ -62,7 +74,7 @@
 </section>
 
 
-<section>
+<section id="beginnings">
 
   <h2>Our Beginnings</h2>
 
@@ -86,7 +98,7 @@
 </section>
 
 
-<section>
+<section id="mission">
 
   <h2>Our Mission</h2>
 
@@ -105,7 +117,7 @@
 </section>
 
 
-<section>
+<section id="founding">
 
   <h2>Founding Committee</h2>
 
@@ -143,7 +155,7 @@
 </section>
 
 
-<section>
+<section id="history">
 
   <h2>TechMeet Through the Years</h2>
 
@@ -177,6 +189,8 @@
 
 </section>
 
+  </div><!-- end .content-area -->
+</div><!-- end .page-layout -->
 
 <footer>
 
@@ -192,6 +206,14 @@
   window.addEventListener('scroll', () => {
     btn.classList.toggle('visible', window.scrollY > 400);
   });
+  const sideLinks = document.querySelectorAll('.sidenav a');
+  const sections  = Array.from(sideLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const observer  = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+    });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+  sections.forEach(s => observer.observe(s));
 </script>
 
 </body>
