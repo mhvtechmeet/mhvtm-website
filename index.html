@@ -38,9 +38,27 @@
   <a href="index.html">Home</a>
   <a href="mhvtm25.html">MHVTM 2025</a>
   <a href="mhvtm24.html">MHVTM 2024</a>
-  <a href="about.html">About MHV TechMeet</a>
+  <a href="about.html">About</a>
 </nav>
 
+
+<div class="page-layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidenav">
+    <div class="sidenav-title">MHVTM 2026</div>
+    <a href="#about">Overview</a>
+    <a href="#participation">Abstract Submission</a>
+    <a href="#registration">Event Registration</a>
+    <a href="#judges">Volunteer to Judge</a>
+    <a href="#venue">Venue</a>
+    <a href="#schedule">Schedule &amp; Speaker</a>
+    <a href="#posters">Submitted Posters</a>
+    <a href="#steering">Steering Committee</a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="content-area">
 
 <!-- INTRODUCTION -->
 
@@ -377,6 +395,9 @@
 
 </section>
 
+  </div><!-- end .content-area -->
+</div><!-- end .page-layout -->
+
 <!-- FOOTER -->
 
 <footer>
@@ -393,6 +414,22 @@
   window.addEventListener('scroll', () => {
     btn.classList.toggle('visible', window.scrollY > 400);
   });
+
+  // Sidebar scroll-spy
+  const sideLinks = document.querySelectorAll('.sidenav a');
+  const sections  = Array.from(sideLinks)
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  window.addEventListener('scroll', () => {
+    let current = sections[0];
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s;
+    });
+    sideLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+    });
+  }, { passive: true });
 </script>
 
 </body>
