@@ -329,6 +329,37 @@ a:hover {
   color: #fff;
 }
 
+/* ---------- Partner logos ---------- */
+
+.partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  margin-top: 14px;
+}
+
+.partner-logos a {
+  display: block;
+  line-height: 0;
+}
+
+.partner-logos img {
+  height: 110px;
+  width: auto;
+  max-width: 100%;
+  border-radius: 7px;
+  border: 1px solid #d5e8e6;
+  background: #fff;
+}
+
+@media (max-width: 600px) {
+  .partner-logos img {
+    height: 90px;
+  }
+}
+
+
 /* ---------- Footer ---------- */
 
 footer {
