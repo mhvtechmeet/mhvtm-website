@@ -329,36 +329,70 @@ a:hover {
   color: #fff;
 }
 
-/* ---------- Partner logos ---------- */
+/* ---------- Sponsor rail (right column) ---------- */
 
-.partner-logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
-  margin-top: 14px;
+.page-layout.has-rail {
+  grid-template-columns: 180px 1fr 170px;
+  max-width: 1300px;
 }
 
-.partner-logos a {
+.sponsor-rail {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+  padding: 20px 16px;
+}
+
+.sponsor-rail-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  padding: 0 0 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sponsor-rail a {
   display: block;
   line-height: 0;
+  margin-bottom: 14px;
 }
 
-.partner-logos img {
-  height: 110px;
-  width: auto;
-  max-width: 100%;
+.sponsor-rail img {
+  width: 100%;
+  height: auto;
   border-radius: 7px;
   border: 1px solid #d5e8e6;
   background: #fff;
 }
 
-@media (max-width: 600px) {
-  .partner-logos img {
-    height: 90px;
+/* Narrow screens: rail drops below the content as a row of logos */
+@media (max-width: 900px) {
+  .page-layout.has-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .sponsor-rail {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+  }
+
+  .sponsor-rail-title {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .sponsor-rail a {
+    width: 140px;
+    margin-bottom: 0;
   }
 }
-
 
 /* ---------- Footer ---------- */
 
