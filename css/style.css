@@ -346,18 +346,21 @@ a:hover {
 /* ---------- Participating organizations (text list; swap in logos later) ---------- */
 
 .org-panel {
-  padding: 8px 16px 20px;
+  margin: 22px 16px 20px;
+  padding: 18px 0 0;
+  border-top: 2px solid #005f6b;   /* divider between the top and bottom panels */
 }
 
 .org-panel-title {
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #999;
+  letter-spacing: 0.06em;
+  color: #005f6b;
+  line-height: 1.3;
   padding: 0 0 8px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #b9dcd9;
 }
 
 .org-panel a.org-name {
@@ -393,6 +396,7 @@ a:hover {
 }
 
 .sponsor-rail .org-panel-companies {
+  margin: 22px 0 0;
   padding: 18px 0 0;
 }
 
@@ -413,14 +417,15 @@ a:hover {
 }
 
 .sponsor-rail-title {
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #999;
+  letter-spacing: 0.06em;
+  color: #005f6b;
+  line-height: 1.3;
   padding: 0 0 8px;
   margin-bottom: 12px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #b9dcd9;
 }
 
 .sponsor-rail a {
@@ -535,14 +540,14 @@ footer h3 {
 }
 
 .sidenav .sidenav-title {
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #999;
+  letter-spacing: 0.06em;
+  color: #005f6b;
   padding: 0 12px 8px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #b9dcd9;
 }
 
 .content-area {
