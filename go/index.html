@@ -9,8 +9,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
-    background: #f0f4f8;
-    min-height: 100vh;
+    background: #f0f4f8; min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     padding: 24px 16px;
   }
@@ -22,50 +21,46 @@
   .event { font-size: 12px; font-weight: 700; letter-spacing: .8px;
            color: #005f6b; text-transform: uppercase; margin-bottom: 6px; }
   h1 { font-size: 20px; font-weight: 700; color: #1f2328;
-       margin-bottom: 20px; line-height: 1.25; }
+       margin-bottom: 8px; line-height: 1.25; }
+  .subtitle { font-size: 14px; color: #57606a; margin-bottom: 20px; }
 
-  /* Step blocks */
-  .steps { counter-reset: step; list-style: none; margin-bottom: 20px; }
+  /* step list */
+  .steps { list-style: none; counter-reset: s; }
   .steps li {
-    counter-increment: step;
-    display: flex; gap: 12px; align-items: flex-start;
+    counter-increment: s; display: flex; gap: 12px;
     padding: 12px 0; border-top: 1px solid #e5e7eb;
-    font-size: 15px; color: #1f2328; line-height: 1.5;
+    font-size: 15px; line-height: 1.5; color: #1f2328;
   }
   .steps li:first-child { border-top: none; padding-top: 0; }
   .steps li::before {
-    content: counter(step);
-    flex-shrink: 0;
+    content: counter(s); flex-shrink: 0;
     width: 26px; height: 26px; border-radius: 50%;
     background: #005f6b; color: #fff;
     font-size: 13px; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
-    margin-top: 1px;
+    margin-top: 2px;
   }
-  .steps li .sub { font-size: 13px; color: #57606a; margin-top: 2px; }
+  .steps li .note { font-size: 13px; color: #57606a; margin-top: 3px; }
+  kbd {
+    display: inline-block; background: #f0f0f0; border: 1px solid #bbb;
+    border-radius: 4px; padding: 1px 6px; font-size: 13px; font-family: inherit;
+  }
 
   .btn {
-    display: block; width: 100%;
-    padding: 16px; background: #005f6b; color: #fff;
+    display: block; width: 100%; margin-top: 10px;
+    padding: 15px; background: #005f6b; color: #fff;
     font-size: 17px; font-weight: 700; border-radius: 8px;
-    text-decoration: none; text-align: center; margin-top: 6px;
+    text-decoration: none; text-align: center;
   }
   .btn:active { background: #004a54; }
-  .btn.secondary {
-    background: #fff; color: #005f6b;
-    border: 2px solid #005f6b; margin-top: 10px;
-    font-size: 15px; padding: 12px;
-  }
 
   .divider { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
-
   .code-box {
     background: #f6f8fa; border-radius: 8px; padding: 14px;
-    font-size: 14px; color: #1f2328; line-height: 1.6;
+    font-size: 14px; color: #1f2328; line-height: 1.7;
   }
-  .code-box strong { display: block; margin-bottom: 4px; }
-  .code-box a { color: #005f6b; font-weight: 600; word-break: break-all; font-size: 13px; }
-
+  .code-box strong { display: block; margin-bottom: 2px; }
+  .portal-url { font-size: 12px; color: #005f6b; word-break: break-all; }
   footer { margin-top: 20px; font-size: 11px; color: #57606a; text-align: center; }
 </style>
 </head>
@@ -73,20 +68,47 @@
 <div class="card">
   <div class="event">MHV TechMeet 2026</div>
   <h1>Judging Portal</h1>
+  <p class="subtitle" id="sub">Follow the steps below to open your poster list.</p>
 
-  <ol class="steps">
+  <!-- Chrome on iOS instructions (shown by JS if Chrome detected) -->
+  <ol class="steps" id="steps-chrome" style="display:none">
     <li>
       <div>
-        <strong>Open a Private tab in Safari</strong>
-        <div class="sub">Tap the tabs icon (⧉) at the bottom right → tap "Private" → tap the + button to open a new private tab.</div>
-        <div class="sub" style="margin-top:6px"><em>Why? The portal runs on Google's servers. A private tab hides your Google account so it opens without a sign-in prompt.</em></div>
+        Tap the <kbd>⋮</kbd> menu in the top-right corner of Chrome
+        <div class="note">Three vertical dots, top right.</div>
       </div>
     </li>
     <li>
       <div>
-        <strong>Come back here and tap the button below</strong>
-        <div class="sub">Or paste your personal judge link into the private tab's address bar.</div>
-        <a id="portal-btn" class="btn" href="#" style="margin-top:10px">Open My Poster List →</a>
+        Tap <strong>"New Incognito Tab"</strong>
+        <div class="note">The screen will go dark and show an incognito icon.</div>
+      </div>
+    </li>
+    <li>
+      <div>
+        In the incognito tab, tap the button below
+        <a id="btn-chrome" class="btn" href="#">Open My Poster List →</a>
+      </div>
+    </li>
+  </ol>
+
+  <!-- Safari instructions (default) -->
+  <ol class="steps" id="steps-safari">
+    <li>
+      <div>
+        Tap the <kbd>⧉</kbd> tabs icon at the <strong>bottom right</strong> of Safari
+      </div>
+    </li>
+    <li>
+      <div>
+        Tap <strong>"Private"</strong> then tap <kbd>+</kbd> to open a new private tab
+        <div class="note">The screen goes dark — that means Private mode is on.</div>
+      </div>
+    </li>
+    <li>
+      <div>
+        Come back here and tap the button below
+        <a id="btn-safari" class="btn" href="#">Open My Poster List →</a>
       </div>
     </li>
   </ol>
@@ -94,9 +116,9 @@
   <hr class="divider">
 
   <div class="code-box">
-    <strong>Prefer to type? Use your 4-letter code:</strong>
-    Open this link in a private tab and enter your code when asked:<br>
-    <a id="plain-link" href="#">…</a>
+    <strong>Alternative: use your 4-letter code</strong>
+    Open the link below in an incognito/private tab and type your code:<br>
+    <span class="portal-url" id="plain-url"></span>
   </div>
 </div>
 
@@ -106,9 +128,20 @@
 (function () {
   var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
   var qs = window.location.search;
-  document.getElementById("portal-btn").href = PORTAL + qs;
-  document.getElementById("plain-link").href = PORTAL;
-  document.getElementById("plain-link").textContent = PORTAL;
+  var dest = PORTAL + qs;
+
+  document.getElementById("btn-chrome").href = dest;
+  document.getElementById("btn-safari").href = dest;
+  document.getElementById("plain-url").textContent = PORTAL;
+
+  // Detect Chrome on iOS and show the right instructions
+  var isChrome = /CriOS/.test(navigator.userAgent);
+  if (isChrome) {
+    document.getElementById("steps-safari").style.display = "none";
+    document.getElementById("steps-chrome").style.display = "";
+    document.getElementById("sub").textContent =
+      "You're using Chrome. Follow these steps to open your poster list.";
+  }
 })();
 </script>
 </body>
