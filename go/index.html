@@ -2,42 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>MHV TechMeet 2026 — Redirecting…</title>
+<title>MHV TechMeet 2026 — Judging Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<script>
-(function () {
-  var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
-  var qs = window.location.search; // preserves ?t=… or ?p=…
-  window.location.replace(PORTAL + qs);
-})();
-</script>
 <style>
-  body { font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
-         display: flex; align-items: center; justify-content: center;
-         min-height: 100vh; margin: 0; background: #f7f8fa; color: #1f2328; }
-  .box { text-align: center; padding: 2rem; }
-  h1 { font-size: 1.2rem; margin: 0 0 .5rem; }
-  p  { color: #57606a; font-size: .9rem; margin: 0; }
-  a  { color: #3b82d4; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.10);
+    max-width: 420px;
+    width: 100%;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .event { font-size: 13px; font-weight: 700; letter-spacing: .8px;
+           color: #005f6b; text-transform: uppercase; margin-bottom: 8px; }
+  h1 { font-size: 22px; font-weight: 700; color: #1f2328; margin-bottom: 24px; line-height: 1.25; }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 18px 16px;
+    background: #005f6b;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  .btn:active { background: #004a54; }
+  .divider { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
+  .trouble { font-size: 14px; color: #57606a; line-height: 1.6; text-align: left; }
+  .trouble strong { color: #1f2328; }
+  .trouble ol { padding-left: 20px; margin-top: 8px; }
+  .trouble li { margin-bottom: 6px; }
+  .code-hint { margin-top: 16px; background: #f6f8fa; border-radius: 6px;
+               padding: 12px; font-size: 14px; color: #1f2328; text-align: left; }
+  .code-hint a { color: #005f6b; font-weight: 600; word-break: break-all; }
+  footer { margin-top: 24px; font-size: 11px; color: #57606a; }
 </style>
 </head>
 <body>
-<div class="box">
-  <h1>MHV TechMeet 2026 — Judging Portal</h1>
-  <p>Redirecting you now…</p>
-  <p style="margin-top:1rem">
-    Not redirected?
-    <a id="fallback" href="#">Tap here</a>
-  </p>
+<div class="card">
+  <div class="event">MHV TechMeet 2026</div>
+  <h1>Judging Portal</h1>
+
+  <a id="portal-btn" class="btn" href="#">Open My Poster List →</a>
+
+  <hr class="divider">
+
+  <div class="trouble">
+    <strong>If you see a Google sign-in error after tapping:</strong>
+    <ol>
+      <li>Tap the back arrow ← to return here.</li>
+      <li>Open <strong>Safari → private tab</strong> (tap the tabs icon, then "Private").</li>
+      <li>Tap the button above again from the private tab.</li>
+    </ol>
+  </div>
+
+  <div class="code-hint">
+    <strong>No QR? Use your 4-letter code instead:</strong><br>
+    Open this URL and enter your code when prompted:<br>
+    <a id="plain-link" href="#">mhvtechmeet.github.io/mhvtm-website/go/plain/</a>
+  </div>
 </div>
+
+<footer>MHV TechMeet 2026 · Judge access only · Made with IBM Bob</footer>
+
 <script>
-  // Fallback link for browsers that block window.location.replace
-  (function () {
-    var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
-    var qs = window.location.search;
-    document.getElementById("fallback").href = PORTAL + qs;
-  })();
+(function () {
+  var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
+  var qs = window.location.search; // ?t=… or ?p=…
+  document.getElementById("portal-btn").href = PORTAL + qs;
+  // Plain fallback link (no token, just the base portal)
+  document.getElementById("plain-link").href = PORTAL;
+  document.getElementById("plain-link").textContent = PORTAL;
+})();
 </script>
 </body>
 </html>
