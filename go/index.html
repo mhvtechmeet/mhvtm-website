@@ -11,47 +11,62 @@
     font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
     background: #f0f4f8;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     padding: 24px 16px;
   }
   .card {
-    background: #fff;
-    border-radius: 12px;
+    background: #fff; border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0,0,0,.10);
-    max-width: 420px;
-    width: 100%;
-    padding: 32px 28px;
-    text-align: center;
+    max-width: 440px; width: 100%; padding: 28px 24px;
   }
-  .event { font-size: 13px; font-weight: 700; letter-spacing: .8px;
-           color: #005f6b; text-transform: uppercase; margin-bottom: 8px; }
-  h1 { font-size: 22px; font-weight: 700; color: #1f2328; margin-bottom: 24px; line-height: 1.25; }
+  .event { font-size: 12px; font-weight: 700; letter-spacing: .8px;
+           color: #005f6b; text-transform: uppercase; margin-bottom: 6px; }
+  h1 { font-size: 20px; font-weight: 700; color: #1f2328;
+       margin-bottom: 20px; line-height: 1.25; }
+
+  /* Step blocks */
+  .steps { counter-reset: step; list-style: none; margin-bottom: 20px; }
+  .steps li {
+    counter-increment: step;
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-top: 1px solid #e5e7eb;
+    font-size: 15px; color: #1f2328; line-height: 1.5;
+  }
+  .steps li:first-child { border-top: none; padding-top: 0; }
+  .steps li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #005f6b; color: #fff;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .steps li .sub { font-size: 13px; color: #57606a; margin-top: 2px; }
+
   .btn {
-    display: block;
-    width: 100%;
-    padding: 18px 16px;
-    background: #005f6b;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-    margin-bottom: 20px;
+    display: block; width: 100%;
+    padding: 16px; background: #005f6b; color: #fff;
+    font-size: 17px; font-weight: 700; border-radius: 8px;
+    text-decoration: none; text-align: center; margin-top: 6px;
   }
   .btn:active { background: #004a54; }
+  .btn.secondary {
+    background: #fff; color: #005f6b;
+    border: 2px solid #005f6b; margin-top: 10px;
+    font-size: 15px; padding: 12px;
+  }
+
   .divider { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
-  .trouble { font-size: 14px; color: #57606a; line-height: 1.6; text-align: left; }
-  .trouble strong { color: #1f2328; }
-  .trouble ol { padding-left: 20px; margin-top: 8px; }
-  .trouble li { margin-bottom: 6px; }
-  .code-hint { margin-top: 16px; background: #f6f8fa; border-radius: 6px;
-               padding: 12px; font-size: 14px; color: #1f2328; text-align: left; }
-  .code-hint a { color: #005f6b; font-weight: 600; word-break: break-all; }
-  footer { margin-top: 24px; font-size: 11px; color: #57606a; }
+
+  .code-box {
+    background: #f6f8fa; border-radius: 8px; padding: 14px;
+    font-size: 14px; color: #1f2328; line-height: 1.6;
+  }
+  .code-box strong { display: block; margin-bottom: 4px; }
+  .code-box a { color: #005f6b; font-weight: 600; word-break: break-all; font-size: 13px; }
+
+  footer { margin-top: 20px; font-size: 11px; color: #57606a; text-align: center; }
 </style>
 </head>
 <body>
@@ -59,23 +74,29 @@
   <div class="event">MHV TechMeet 2026</div>
   <h1>Judging Portal</h1>
 
-  <a id="portal-btn" class="btn" href="#">Open My Poster List →</a>
+  <ol class="steps">
+    <li>
+      <div>
+        <strong>Open a Private tab in Safari</strong>
+        <div class="sub">Tap the tabs icon (⧉) at the bottom right → tap "Private" → tap the + button to open a new private tab.</div>
+        <div class="sub" style="margin-top:6px"><em>Why? The portal runs on Google's servers. A private tab hides your Google account so it opens without a sign-in prompt.</em></div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <strong>Come back here and tap the button below</strong>
+        <div class="sub">Or paste your personal judge link into the private tab's address bar.</div>
+        <a id="portal-btn" class="btn" href="#" style="margin-top:10px">Open My Poster List →</a>
+      </div>
+    </li>
+  </ol>
 
   <hr class="divider">
 
-  <div class="trouble">
-    <strong>If you see a Google sign-in error after tapping:</strong>
-    <ol>
-      <li>Tap the back arrow ← to return here.</li>
-      <li>Open <strong>Safari → private tab</strong> (tap the tabs icon, then "Private").</li>
-      <li>Tap the button above again from the private tab.</li>
-    </ol>
-  </div>
-
-  <div class="code-hint">
-    <strong>No QR? Use your 4-letter code instead:</strong><br>
-    Open this URL and enter your code when prompted:<br>
-    <a id="plain-link" href="#">mhvtechmeet.github.io/mhvtm-website/go/plain/</a>
+  <div class="code-box">
+    <strong>Prefer to type? Use your 4-letter code:</strong>
+    Open this link in a private tab and enter your code when asked:<br>
+    <a id="plain-link" href="#">…</a>
   </div>
 </div>
 
@@ -84,9 +105,8 @@
 <script>
 (function () {
   var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
-  var qs = window.location.search; // ?t=… or ?p=…
+  var qs = window.location.search;
   document.getElementById("portal-btn").href = PORTAL + qs;
-  // Plain fallback link (no token, just the base portal)
   document.getElementById("plain-link").href = PORTAL;
   document.getElementById("plain-link").textContent = PORTAL;
 })();
