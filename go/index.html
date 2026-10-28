@@ -2,164 +2,544 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>MHV TechMeet 2026 — Judging Portal</title>
+<title>MHV TechMeet 2026 — Judging</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; }
-  body {
-    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
-    background: #f0f4f8;
-    min-height: 100vh;
-    padding: 24px 16px;
-  }
-  .card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.10);
-    width: 100%;
-    max-width: 440px;
-    margin: 0 auto;
-    padding: 28px 20px;
-  }
-  .event {
-    font-size: 12px; font-weight: 700; letter-spacing: .8px;
-    color: #005f6b; text-transform: uppercase; margin-bottom: 6px;
-  }
-  h1 {
-    font-size: 22px; font-weight: 700; color: #1f2328;
-    margin-bottom: 6px; line-height: 1.25;
-  }
-  .subtitle { font-size: 14px; color: #57606a; margin-bottom: 20px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; min-height: 100vh; }
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  background: #f0f4f8; color: #1f2328; font-size: 16px; line-height: 1.5;
+}
 
-  .steps { list-style: none; counter-reset: s; }
-  .steps li {
-    counter-increment: s;
-    display: flex; gap: 14px; align-items: flex-start;
-    padding: 14px 0; border-top: 1px solid #e5e7eb;
-    font-size: 15px; line-height: 1.55; color: #1f2328;
-  }
-  .steps li:first-child { border-top: none; padding-top: 0; }
-  .steps li::before {
-    content: counter(s);
-    flex-shrink: 0;
-    width: 28px; height: 28px; border-radius: 50%;
-    background: #005f6b; color: #fff;
-    font-size: 14px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .steps li .body { flex: 1; min-width: 0; }
-  .steps li .note {
-    font-size: 13px; color: #57606a; margin-top: 4px; line-height: 1.5;
-  }
+/* ── layout ── */
+.screen { display: none; padding: 24px 16px; max-width: 520px; margin: 0 auto; }
+.screen.active { display: block; }
 
-  .btn {
-    display: block; width: 100%; margin-top: 12px;
-    padding: 16px; background: #005f6b; color: #fff;
-    font-size: 17px; font-weight: 700; border-radius: 8px;
-    text-decoration: none; text-align: center; cursor: pointer;
-    border: none; font-family: inherit;
-  }
-  .btn:active, .btn:focus { background: #004a54; outline: none; }
-  .copied { background: #2e7d32 !important; }
-  .url-display {
-    margin-top: 10px; padding: 10px 12px;
-    background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;
-    font-size: 12px; font-family: ui-monospace, Menlo, monospace;
-    color: #1f2328; word-break: break-all; line-height: 1.5;
-    user-select: all; -webkit-user-select: all;
-  }
+/* ── header ── */
+.hdr { margin-bottom: 20px; }
+.hdr .event { font-size: 11px; font-weight: 700; letter-spacing: .9px;
+              color: #005f6b; text-transform: uppercase; margin-bottom: 4px; }
+.hdr h1 { font-size: 22px; font-weight: 700; color: #1f2328; line-height: 1.2; }
+.hdr .sub { font-size: 14px; color: #57606a; margin-top: 4px; }
 
-  .divider { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
+/* ── test banner ── */
+.test-banner { background: #b71c1c; color: #fff; font-size: 13px; font-weight: 700;
+               text-align: center; padding: 6px; letter-spacing: .5px; }
 
-  .code-box {
-    background: #f6f8fa; border-radius: 8px; padding: 14px;
-    font-size: 14px; color: #1f2328; line-height: 1.7;
-  }
-  .code-box strong { display: block; margin-bottom: 4px; }
-  .portal-url {
-    font-size: 12px; color: #005f6b; word-break: break-all;
-    font-family: ui-monospace, Menlo, monospace;
-  }
+/* ── cards ── */
+.card { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.09);
+        padding: 20px; margin-bottom: 14px; }
 
-  footer {
-    margin-top: 20px; font-size: 11px; color: #57606a; text-align: center;
-  }
+/* ── form elements ── */
+label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #1f2328; }
+input[type=text], input[type=password] {
+  width: 100%; padding: 13px 14px; border: 1px solid #d0d7de; border-radius: 8px;
+  font-size: 18px; font-family: inherit; letter-spacing: 2px; color: #1f2328;
+  outline: none;
+}
+input[type=text]:focus, input[type=password]:focus { border-color: #005f6b; }
+textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid #d0d7de; border-radius: 8px;
+  font-size: 14px; font-family: inherit; resize: vertical; min-height: 80px; outline: none;
+}
+textarea:focus { border-color: #005f6b; }
+
+/* ── buttons ── */
+.btn {
+  display: block; width: 100%; padding: 15px; background: #005f6b; color: #fff;
+  font-size: 17px; font-weight: 700; border-radius: 8px; border: none;
+  font-family: inherit; cursor: pointer; text-align: center; margin-top: 10px;
+}
+.btn:active { background: #004a54; }
+.btn:disabled { background: #b0bec5; cursor: not-allowed; }
+.btn.secondary {
+  background: #fff; color: #005f6b; border: 2px solid #005f6b;
+  font-size: 15px; padding: 11px;
+}
+.btn.secondary:active { background: #e8f5f6; }
+.btn.danger { background: #c62828; }
+.btn.danger:active { background: #8e0000; }
+.btn.sm { font-size: 13px; padding: 8px 14px; width: auto; display: inline-block; margin-top: 0; border-radius: 6px; }
+
+/* ── chips / status ── */
+.chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px;
+        border-radius: 12px; margin-left: 6px; vertical-align: middle; }
+.chip.submitted { background: #e6f4ea; color: #1b5e20; }
+.chip.draft     { background: #fff8e1; color: #7c4d00; }
+.chip.coi       { background: #fce4ec; color: #880e4f; }
+.chip.walkup    { background: #e8eaf6; color: #283593; }
+
+/* ── poster list ── */
+.poster-card { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.09);
+               padding: 16px; margin-bottom: 12px; cursor: pointer; border: 2px solid transparent; }
+.poster-card:active { border-color: #005f6b; }
+.poster-card .pid { font-size: 13px; font-weight: 700; color: #005f6b; margin-bottom: 2px; }
+.poster-card .ptitle { font-size: 15px; font-weight: 600; line-height: 1.3; color: #1f2328; }
+.poster-card .pcat { font-size: 12px; color: #57606a; margin-top: 2px; }
+
+/* ── rubric ── */
+.criterion { margin-bottom: 18px; }
+.criterion .qtext { font-size: 14px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+.score-row { display: flex; gap: 6px; }
+.score-btn {
+  flex: 1; padding: 12px 4px; border: 2px solid #d0d7de; background: #fff;
+  border-radius: 8px; font-size: 17px; font-weight: 700; color: #57606a;
+  cursor: pointer; font-family: inherit; transition: border-color .1s, background .1s;
+  text-align: center;
+}
+.score-btn.sel { border-color: #005f6b; background: #005f6b; color: #fff; }
+.score-btn:active { background: #e8f5f6; border-color: #005f6b; color: #005f6b; }
+.score-btn.sel:active { background: #004a54; }
+.descriptor { font-size: 11px; color: #57606a; text-align: center; margin-top: 4px; height: 16px; }
+
+/* ── total bar ── */
+.total-bar { background: #f6f8fa; border-radius: 8px; padding: 12px 16px;
+             display: flex; justify-content: space-between; align-items: center;
+             margin-bottom: 14px; font-size: 15px; }
+.total-bar .val { font-size: 22px; font-weight: 700; color: #005f6b; }
+
+/* ── COI toggle ── */
+.coi-row { display: flex; gap: 12px; align-items: center; padding: 12px 0;
+           border-top: 1px solid #e5e7eb; margin-top: 10px; }
+.coi-row input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; accent-color: #c62828; }
+.coi-row label { font-size: 14px; color: #1f2328; margin: 0; font-weight: 400; cursor: pointer; }
+
+/* ── alerts / errors ── */
+.alert { border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; font-size: 14px; line-height: 1.5; }
+.alert.err  { background: #fdecea; color: #c62828; border-left: 4px solid #c62828; }
+.alert.info { background: #eef6fb; color: #1565c0; border-left: 4px solid #1565c0; }
+.alert.warn { background: #fff8e1; color: #7c4d00; border-left: 4px solid #f9a825; }
+.alert.ok   { background: #e6f4ea; color: #1b5e20; border-left: 4px solid #2e7d32; }
+
+/* ── spinner ── */
+.spinner { text-align: center; padding: 40px; color: #57606a; font-size: 14px; }
+
+/* ── nav back ── */
+.back-btn { display: flex; align-items: center; gap: 6px; background: none; border: none;
+            font-size: 15px; color: #005f6b; font-weight: 600; cursor: pointer;
+            font-family: inherit; padding: 0; margin-bottom: 16px; }
+.back-btn:active { color: #004a54; }
+
+/* ── divider ── */
+hr.div { border: none; border-top: 1px solid #e5e7eb; margin: 16px 0; }
+
+/* ── footer ── */
+footer { text-align: center; font-size: 11px; color: #57606a; padding: 20px 0 24px; }
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="event">MHV TechMeet 2026</div>
-  <h1>Judging Portal</h1>
-  <p class="subtitle">Your poster list is one tap away — follow these steps first.</p>
 
-  <ol class="steps">
-    <li>
-      <div class="body">
-        <strong>Open a private / incognito tab</strong>
-        <div class="note">
-          <strong>Safari:</strong> tap the tabs icon (⧉) bottom-right → tap <em>Private</em> → tap +.<br>
-          <strong>Chrome:</strong> tap ⋮ top-right → tap <em>New Incognito Tab</em>.
-        </div>
-        <div class="note" style="margin-top:6px;font-style:italic">
-          Why? The portal runs on Google's servers. A private tab prevents your Google account from blocking the page.
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="body">
-        <strong>In that incognito/private tab, open this link</strong>
-        <div class="note">Tap <em>Copy Link</em> below, then paste it into the incognito tab's address bar.</div>
-        <button class="btn" id="copy-btn" onclick="copyLink()">Copy Link</button>
-        <div class="url-display" id="url-display"></div>
-      </div>
-    </li>
-  </ol>
+<div id="test-banner" class="test-banner" style="display:none">⚠ TEST DATA — scores go to the test workbook only</div>
 
-  <hr class="divider">
-
-  <div class="code-box">
-    <strong>No QR card? Use your 4-letter code instead.</strong>
-    Open this link in a private/incognito tab, then type your code when asked:<br>
-    <span class="portal-url" id="plain-url"></span>
+<!-- ══ SCREEN: sign-in ══ -->
+<div id="scr-signin" class="screen active">
+  <div class="hdr">
+    <div class="event">MHV TechMeet 2026</div>
+    <h1>Judging Portal</h1>
+    <p class="sub">Enter your 4-letter judge code to begin.</p>
   </div>
+  <div id="signin-err" class="alert err" style="display:none"></div>
+  <div class="card">
+    <label for="code-input">Your judge code</label>
+    <input id="code-input" type="text" maxlength="8" autocomplete="off" autocorrect="off"
+           autocapitalize="characters" spellcheck="false" placeholder="e.g. EZ8P">
+    <button class="btn" id="signin-btn" onclick="doSignIn()">Sign In →</button>
+  </div>
+  <div id="signin-spinner" class="spinner" style="display:none">Checking your code…</div>
+</div>
+
+<!-- ══ SCREEN: poster list ══ -->
+<div id="scr-home" class="screen">
+  <button class="back-btn" onclick="doSignOut()">← Switch judge</button>
+  <div class="hdr">
+    <div class="event">MHV TechMeet 2026</div>
+    <h1 id="home-name">My Posters</h1>
+    <p class="sub" id="home-sub"></p>
+  </div>
+  <div id="home-closed" class="alert warn" style="display:none">Judging is currently closed. You can review scores but not submit.</div>
+  <div id="home-err" class="alert err" style="display:none"></div>
+  <div id="poster-list"></div>
+  <div id="home-spinner" class="spinner" style="display:none">Loading your posters…</div>
+  <button class="btn secondary" id="refresh-btn" onclick="loadHome()" style="margin-top:4px">↻ Refresh list</button>
+</div>
+
+<!-- ══ SCREEN: scoring form ══ -->
+<div id="scr-score" class="screen">
+  <button class="back-btn" onclick="showHome()">← My posters</button>
+  <div id="score-project-hdr" class="hdr"></div>
+  <div id="score-walkup-note" class="alert info" style="display:none">This poster is not in your assigned list. Your score will be marked as a walk-up and may be reviewed by the organizer.</div>
+  <div id="score-closed" class="alert warn" style="display:none">Judging is closed — you can view but not change scores.</div>
+  <div id="score-err" class="alert err" style="display:none"></div>
+  <div id="score-ok" class="alert ok" style="display:none"></div>
+  <div id="rubric-form"></div>
+  <div id="score-spinner" class="spinner" style="display:none">Saving…</div>
 </div>
 
 <footer>MHV TechMeet 2026 · Judge access only · Made with IBM Bob</footer>
 
 <script>
-var _portalUrl = "";
-(function () {
-  var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
-  var qs = window.location.search;
-  _portalUrl = PORTAL + qs;
-  document.getElementById("url-display").textContent = _portalUrl;
-  document.getElementById("plain-url").textContent = PORTAL;
-})();
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+var API = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
+var DESCRIPTORS = { 5:"Excellent", 4:"Good", 3:"Fair", 2:"Needs improvement", 1:"Needs improvement" };
 
-function copyLink() {
-  var btn = document.getElementById("copy-btn");
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(_portalUrl).then(function () {
-      btn.textContent = "✓ Copied!";
-      btn.classList.add("copied");
-      setTimeout(function () {
-        btn.textContent = "Copy Link";
-        btn.classList.remove("copied");
-      }, 3000);
-    });
-  } else {
-    // Fallback: select the text so the judge can copy manually
-    var el = document.getElementById("url-display");
-    var range = document.createRange();
-    range.selectNodeContents(el);
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-    btn.textContent = "Link selected — copy it";
-  }
+// ── STATE ─────────────────────────────────────────────────────────────────────
+var _cred = "";         // token or code used to authenticate
+var _judge = null;      // { name, email, role }
+var _homeData = null;   // last home response
+var _scoreData = null;  // last project detail response
+var _scores = {};       // { criterionKey: 1-5 }
+var _coi = false;
+var _judging_open = true;
+
+// ── STORAGE ───────────────────────────────────────────────────────────────────
+function saveLocal(cred) { try { localStorage.setItem("mhvtm26_cred", cred); } catch(e){} }
+function loadLocal() { try { return localStorage.getItem("mhvtm26_cred") || ""; } catch(e){ return ""; } }
+function clearLocal() { try { localStorage.removeItem("mhvtm26_cred"); } catch(e){} }
+
+// ── API FETCH ─────────────────────────────────────────────────────────────────
+function apiCall(params) {
+  var url = API + "?" + Object.keys(params).map(function(k) {
+    return encodeURIComponent(k) + "=" + encodeURIComponent(
+      typeof params[k] === "object" ? JSON.stringify(params[k]) : params[k]
+    );
+  }).join("&");
+  return fetch(url).then(function(r) {
+    if (!r.ok) throw new Error("Network error (" + r.status + ")");
+    return r.json();
+  }).then(function(data) {
+    if (!data.ok) throw new Error(data.error || "Unknown error");
+    return data;
+  });
 }
+
+// ── SCREENS ───────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  ["scr-signin","scr-home","scr-score"].forEach(function(s) {
+    document.getElementById(s).classList.toggle("active", s === id);
+  });
+  window.scrollTo(0, 0);
+}
+function showHome() { showScreen("scr-home"); loadHome(); }
+
+// ── SIGN-IN ───────────────────────────────────────────────────────────────────
+function doSignIn() {
+  var code = document.getElementById("code-input").value.trim();
+  if (!code) return;
+  setSignInBusy(true);
+  apiCall({ action: "login", t: code })
+    .then(function(data) {
+      _cred = code;
+      saveLocal(code);
+      onHomeData(data);
+      showScreen("scr-home");
+    })
+    .catch(function(e) { showErr("signin-err", e.message); })
+    .finally(function() { setSignInBusy(false); });
+}
+
+function doSignOut() {
+  _cred = ""; _judge = null; _homeData = null;
+  clearLocal();
+  document.getElementById("code-input").value = "";
+  hideEl("signin-err");
+  showScreen("scr-signin");
+}
+
+function setSignInBusy(on) {
+  document.getElementById("signin-btn").disabled = on;
+  document.getElementById("signin-spinner").style.display = on ? "" : "none";
+}
+
+// ── HOME ──────────────────────────────────────────────────────────────────────
+function loadHome() {
+  if (!_cred) return;
+  showEl("home-spinner"); hideEl("home-err");
+  document.getElementById("refresh-btn").disabled = true;
+  apiCall({ action: "home", t: _cred })
+    .then(function(data) { onHomeData(data); })
+    .catch(function(e) { showErr("home-err", e.message); })
+    .finally(function() {
+      hideEl("home-spinner");
+      document.getElementById("refresh-btn").disabled = false;
+    });
+}
+
+function onHomeData(data) {
+  _judge = data.judge;
+  _homeData = data;
+  _judging_open = data.open;
+  document.getElementById("home-name").textContent = "Hi, " + (_judge.name || "Judge") + "!";
+  document.getElementById("home-sub").textContent =
+    data.posters.length + " poster" + (data.posters.length !== 1 ? "s" : "") + " assigned to you";
+  document.getElementById("home-closed").style.display = data.open ? "none" : "";
+  renderPosterList(data.posters);
+  if (data.test) document.getElementById("test-banner").style.display = "";
+}
+
+function renderPosterList(posters) {
+  var el = document.getElementById("poster-list");
+  if (!posters.length) {
+    el.innerHTML = '<div class="alert info">No posters assigned yet. Check back after the organizer runs the assignment step.</div>';
+    return;
+  }
+  el.innerHTML = posters.map(function(p) {
+    var chip = "";
+    if (p.status === "submitted") chip = '<span class="chip submitted">Submitted ' + (p.total !== null ? p.total + "/25" : "✓") + '</span>';
+    else if (p.status === "draft") chip = '<span class="chip draft">Draft</span>';
+    else if (p.status === "coi")   chip = '<span class="chip coi">COI</span>';
+    if (p.walkUp) chip += '<span class="chip walkup">Walk-up</span>';
+    return '<div class="poster-card" onclick="openPoster(\'' + esc(p.id) + '\')">' +
+      '<div class="pid">' + esc(p.id) + chip + '</div>' +
+      '<div class="ptitle">' + esc(p.title) + '</div>' +
+      '<div class="pcat">' + esc(p.category) + '</div>' +
+      '</div>';
+  }).join("");
+}
+
+// ── SCORING FORM ──────────────────────────────────────────────────────────────
+function openPoster(pid) {
+  showScreen("scr-score");
+  hideEl("score-err"); hideEl("score-ok"); hideEl("score-walkup-note");
+  document.getElementById("rubric-form").innerHTML = "";
+  document.getElementById("score-project-hdr").innerHTML = "";
+  showEl("score-spinner");
+  apiCall({ action: "project", t: _cred, p: pid })
+    .then(function(data) {
+      _scoreData = data;
+      _scores = {};
+      _coi = false;
+      if (data.project.score) {
+        _scores = data.project.score.scores || {};
+        _coi = !!data.project.score.coi;
+      }
+      renderScoreForm(data);
+    })
+    .catch(function(e) { showErr("score-err", e.message); })
+    .finally(function() { hideEl("score-spinner"); });
+}
+
+function renderScoreForm(data) {
+  var p = data.project;
+  var open = data.open;
+
+  // header
+  document.getElementById("score-project-hdr").innerHTML =
+    '<div class="event">' + esc(p.category) + '</div>' +
+    '<h1>' + esc(p.id) + '</h1>' +
+    '<p class="sub">' + esc(p.title) + '</p>';
+
+  document.getElementById("score-walkup-note").style.display = (!p.assigned && !p.rejected) ? "" : "none";
+  document.getElementById("score-closed").style.display = open ? "none" : "";
+
+  var rubric = data.rubric ? data.rubric.criteria : [];
+  var html = "";
+
+  // COI checkbox
+  html += '<div class="card">';
+  html += '<div class="coi-row">';
+  html += '<input type="checkbox" id="coi-cb"' + (_coi ? " checked" : "") + (open ? "" : " disabled") + ' onchange="onCoiChange()">';
+  html += '<label for="coi-cb">I have a conflict of interest with this poster and cannot score it fairly.</label>';
+  html += '</div></div>';
+
+  // rubric criteria
+  html += '<div id="coi-hide"' + (_coi ? ' style="display:none"' : "") + '>';
+  rubric.forEach(function(c) {
+    var cur = _scores[c.key] || 0;
+    html += '<div class="card criterion" id="crit-' + esc(c.key) + '">';
+    html += '<div class="qtext">' + esc(c.q) + '</div>';
+    html += '<div class="score-row">';
+    for (var v = 1; v <= 5; v++) {
+      html += '<button class="score-btn' + (cur === v ? " sel" : "") + '"' +
+              (open ? ' onclick="setScore(\'' + c.key + '\',' + v + ')"' : " disabled") +
+              '>' + v + '</button>';
+    }
+    html += '</div>';
+    html += '<div class="descriptor" id="desc-' + esc(c.key) + '">' + (cur ? (DESCRIPTORS[cur] || "") : "") + '</div>';
+    html += '</div>';
+  });
+
+  // comment
+  html += '<div class="card">';
+  html += '<label for="comment-box">Comments (optional)</label>';
+  html += '<textarea id="comment-box" maxlength="2000"' + (open ? "" : " readonly") + '>' +
+          esc(p.score ? p.score.comment : "") + '</textarea>';
+  html += '</div>';
+
+  // total bar
+  html += '<div class="total-bar" id="total-bar" style="display:none">';
+  html += '<span>Total</span><span class="val" id="total-val"></span></div>';
+
+  // action buttons
+  if (open) {
+    html += '<button class="btn secondary" id="draft-btn" onclick="doSave(false)">Save draft</button>';
+    html += '<button class="btn" id="submit-btn" onclick="doSave(true)" disabled>Submit score</button>';
+  }
+  html += '</div>';  // close coi-hide
+
+  document.getElementById("rubric-form").innerHTML = html;
+  updateTotal();
+}
+
+function onCoiChange() {
+  _coi = document.getElementById("coi-cb").checked;
+  var hide = document.getElementById("coi-hide");
+  if (hide) hide.style.display = _coi ? "none" : "";
+  updateTotal();
+}
+
+function setScore(key, val) {
+  _scores[key] = val;
+  // update button states
+  var row = document.querySelector("#crit-" + key + " .score-row");
+  if (row) {
+    Array.from(row.querySelectorAll(".score-btn")).forEach(function(btn, i) {
+      btn.classList.toggle("sel", i + 1 === val);
+    });
+  }
+  var desc = document.getElementById("desc-" + key);
+  if (desc) desc.textContent = DESCRIPTORS[val] || "";
+  updateTotal();
+}
+
+function updateTotal() {
+  if (!_scoreData) return;
+  var rubric = (_scoreData.rubric || {}).criteria || [];
+  var allScored = !_coi && rubric.length > 0 && rubric.every(function(c) { return _scores[c.key]; });
+  var total = allScored ? rubric.reduce(function(s, c) { return s + (_scores[c.key] || 0); }, 0) : null;
+
+  var bar = document.getElementById("total-bar");
+  if (bar) {
+    bar.style.display = (allScored || _coi) ? "" : "none";
+    var valEl = document.getElementById("total-val");
+    if (valEl) valEl.textContent = _coi ? "COI" : (total + " / 25");
+  }
+  var sub = document.getElementById("submit-btn");
+  if (sub) sub.disabled = !allScored && !_coi;
+}
+
+function doSave(submit) {
+  hideEl("score-err"); hideEl("score-ok");
+  showEl("score-spinner");
+  ["draft-btn","submit-btn"].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.disabled = true;
+  });
+
+  var rubric = (_scoreData.rubric || {}).criteria || [];
+  var scorePayload = {};
+  rubric.forEach(function(c) { scorePayload[c.key] = _scores[c.key] || null; });
+
+  apiCall({
+    action: "save",
+    t: _cred,
+    body: JSON.stringify({
+      action: "save",
+      credential: _cred,
+      project: _scoreData.project.id,
+      scores: scorePayload,
+      comment: (document.getElementById("comment-box") || {}).value || "",
+      coi: _coi,
+      submit: submit,
+      source: "digital-spa"
+    })
+  })
+  .then(function(data) {
+    var msg = submit
+      ? "Score submitted! Total: " + (data.saved.total !== null ? data.saved.total + " / 25" : "COI recorded")
+      : "Draft saved.";
+    showMsg("score-ok", msg);
+    // update chip on home list
+    loadHome();
+  })
+  .catch(function(e) { showErr("score-err", e.message); })
+  .finally(function() {
+    hideEl("score-spinner");
+    ["draft-btn","submit-btn"].forEach(function(id) {
+      var el = document.getElementById(id); if (el) el.disabled = false;
+    });
+    updateTotal();
+  });
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function showEl(id)  { var e = document.getElementById(id); if (e) e.style.display = ""; }
+function hideEl(id)  { var e = document.getElementById(id); if (e) e.style.display = "none"; }
+function showErr(id, msg) { var e = document.getElementById(id); if (e) { e.textContent = msg; e.style.display = ""; } }
+function showMsg(id, msg) { var e = document.getElementById(id); if (e) { e.textContent = msg; e.style.display = ""; } }
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+(function boot() {
+  var qs = {};
+  window.location.search.slice(1).split("&").forEach(function(p) {
+    var kv = p.split("="); if (kv[0]) qs[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || "");
+  });
+
+  var token = qs.t || "";
+  var poster = qs.p || "";
+
+  // First try token from QR (?t=)
+  if (token) {
+    _cred = token;
+    apiCall({ action: poster ? "project" : "login", t: token, p: poster })
+      .then(function(data) {
+        saveLocal(token);
+        if (poster && data.project) {
+          // came from poster QR while signed in
+          onHomeData({ judge: data.judge || {}, posters: [], open: data.open,
+                       test: data.test, rubric: data.rubric });
+          _scoreData = data;
+          _scores = data.project.score ? (data.project.score.scores || {}) : {};
+          _coi = data.project.score ? !!data.project.score.coi : false;
+          showScreen("scr-score");
+          renderScoreForm(data);
+        } else {
+          onHomeData(data);
+          if (poster) openPoster(poster);
+          else showScreen("scr-home");
+        }
+      })
+      .catch(function(e) {
+        // token invalid or expired — fall through to sign-in
+        showErr("signin-err", e.message);
+        showScreen("scr-signin");
+      });
+    return;
+  }
+
+  // Try remembered credential from localStorage
+  var saved = loadLocal();
+  if (saved) {
+    _cred = saved;
+    apiCall({ action: "login", t: saved })
+      .then(function(data) {
+        onHomeData(data);
+        if (poster) openPoster(poster);
+        else showScreen("scr-home");
+      })
+      .catch(function() {
+        clearLocal(); _cred = "";
+        if (poster) {
+          // poster QR but no valid cred — pre-fill and ask for code
+          document.getElementById("code-input").placeholder = "Enter your code to score " + poster;
+        }
+        showScreen("scr-signin");
+      });
+    return;
+  }
+
+  // No token, no saved cred — show sign-in
+  if (poster) document.getElementById("code-input").placeholder = "Enter your code to score " + poster;
+  showScreen("scr-signin");
+
+  // Handle Enter key on code input
+  document.getElementById("code-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") doSignIn();
+  });
+})();
 </script>
 </body>
 </html>
