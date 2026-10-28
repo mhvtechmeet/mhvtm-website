@@ -58,9 +58,18 @@
     display: block; width: 100%; margin-top: 12px;
     padding: 16px; background: #005f6b; color: #fff;
     font-size: 17px; font-weight: 700; border-radius: 8px;
-    text-decoration: none; text-align: center;
+    text-decoration: none; text-align: center; cursor: pointer;
+    border: none; font-family: inherit;
   }
-  .btn:active { background: #004a54; }
+  .btn:active, .btn:focus { background: #004a54; outline: none; }
+  .copied { background: #2e7d32 !important; }
+  .url-display {
+    margin-top: 10px; padding: 10px 12px;
+    background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;
+    font-size: 12px; font-family: ui-monospace, Menlo, monospace;
+    color: #1f2328; word-break: break-all; line-height: 1.5;
+    user-select: all; -webkit-user-select: all;
+  }
 
   .divider { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
 
@@ -100,9 +109,10 @@
     </li>
     <li>
       <div class="body">
-        <strong>In that private tab, tap the button below</strong>
-        <div class="note">Your poster list will open directly — no password needed.</div>
-        <a id="portal-btn" class="btn" href="#">Open My Poster List →</a>
+        <strong>In that incognito/private tab, open this link</strong>
+        <div class="note">Tap <em>Copy Link</em> below, then paste it into the incognito tab's address bar.</div>
+        <button class="btn" id="copy-btn" onclick="copyLink()">Copy Link</button>
+        <div class="url-display" id="url-display"></div>
       </div>
     </li>
   </ol>
@@ -119,12 +129,37 @@
 <footer>MHV TechMeet 2026 · Judge access only · Made with IBM Bob</footer>
 
 <script>
+var _portalUrl = "";
 (function () {
   var PORTAL = "https://script.google.com/macros/s/AKfycbxxrhkkIaq2VYnyBdMx6jReb4yGlUjX1bdDcH8I_v7KEil6a-3OKo7kNC55ewq75bKq/exec";
   var qs = window.location.search;
-  document.getElementById("portal-btn").href = PORTAL + qs;
+  _portalUrl = PORTAL + qs;
+  document.getElementById("url-display").textContent = _portalUrl;
   document.getElementById("plain-url").textContent = PORTAL;
 })();
+
+function copyLink() {
+  var btn = document.getElementById("copy-btn");
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(_portalUrl).then(function () {
+      btn.textContent = "✓ Copied!";
+      btn.classList.add("copied");
+      setTimeout(function () {
+        btn.textContent = "Copy Link";
+        btn.classList.remove("copied");
+      }, 3000);
+    });
+  } else {
+    // Fallback: select the text so the judge can copy manually
+    var el = document.getElementById("url-display");
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    btn.textContent = "Link selected — copy it";
+  }
+}
 </script>
 </body>
 </html>
