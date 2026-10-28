@@ -138,13 +138,17 @@ footer { text-align: center; font-size: 11px; color: #57606a; padding: 20px 0 24
   <div class="hdr">
     <div class="event">MHV TechMeet 2026</div>
     <h1>Judging Portal</h1>
-    <p class="sub">Enter your 4-letter judge code to begin.</p>
+    <p class="sub">Enter your judge code and last name to begin.</p>
   </div>
   <div id="signin-err" class="alert err" style="display:none"></div>
   <div class="card">
     <label for="code-input">Your judge code</label>
     <input id="code-input" type="text" maxlength="8" autocomplete="off" autocorrect="off"
-           autocapitalize="characters" spellcheck="false" placeholder="e.g. EZ8P">
+           autocapitalize="characters" spellcheck="false" placeholder="e.g. EZ8P"
+           style="margin-bottom:14px">
+    <label for="identity-input">Last name or registration email</label>
+    <input id="identity-input" type="text" maxlength="120" autocomplete="off" autocorrect="off"
+           autocapitalize="words" spellcheck="false" placeholder="e.g. Chen">
     <button class="btn" id="signin-btn" onclick="doSignIn()">Sign In →</button>
   </div>
   <div id="signin-spinner" class="spinner" style="display:none">Checking your code…</div>
@@ -225,10 +229,13 @@ function showHome() { showScreen("scr-home"); loadHome(); }
 
 // ── SIGN-IN ───────────────────────────────────────────────────────────────────
 function doSignIn() {
-  var code = document.getElementById("code-input").value.trim();
-  if (!code) return;
+  var code     = document.getElementById("code-input").value.trim();
+  var identity = document.getElementById("identity-input").value.trim();
+  if (!code) { showErr("signin-err", "Please enter your judge code."); return; }
+  // Identity is required for manual code entry (not needed when auto-signing in via token QR)
+  if (!identity) { showErr("signin-err", "Please enter your last name or registration email."); return; }
   setSignInBusy(true);
-  apiCall({ action: "login", t: code })
+  apiCall({ action: "login", t: code, identity: identity })
     .then(function(data) {
       _cred = code;
       saveLocal(code);
@@ -243,6 +250,7 @@ function doSignOut() {
   _cred = ""; _judge = null; _homeData = null;
   clearLocal();
   document.getElementById("code-input").value = "";
+  document.getElementById("identity-input").value = "";
   hideEl("signin-err");
   showScreen("scr-signin");
 }
@@ -535,9 +543,11 @@ function showMsg(id, msg) { var e = document.getElementById(id); if (e) { e.text
   if (poster) document.getElementById("code-input").placeholder = "Enter your code to score " + poster;
   showScreen("scr-signin");
 
-  // Handle Enter key on code input
-  document.getElementById("code-input").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") doSignIn();
+  // Handle Enter key on either sign-in field
+  ["code-input", "identity-input"].forEach(function(id) {
+    document.getElementById(id).addEventListener("keydown", function(e) {
+      if (e.key === "Enter") doSignIn();
+    });
   });
 })();
 </script>
