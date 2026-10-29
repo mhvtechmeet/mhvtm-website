@@ -277,14 +277,15 @@
     btn.textContent = 'Submitting…';
     hideStatus();
 
-    const payload = { name, email, school, title, abstract,
-                      coauthors: document.getElementById('coauthors').value.trim() };
+    const params = new URLSearchParams({
+      name, email, school, title, abstract,
+      coauthors: document.getElementById('coauthors').value.trim()
+    });
 
     try {
       const res = await fetch(ENDPOINT, {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload),
+        body:    params,
       });
 
       const data = await res.json();
