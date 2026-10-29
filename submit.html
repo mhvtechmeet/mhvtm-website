@@ -246,11 +246,13 @@
   abstractEl.addEventListener('input', updateWC);
 
   // ── form submission ───────────────────────────────────────────
-  // PASTE YOUR APPS SCRIPT WEB APP URL HERE (see submit-endpoint.gs):
-  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyf95zrA8MFyyAiNLlodNEaLM_LlIQa_8r1F4Kr1OGSNabzj6r_hsuovNfSCAZjnHJo/exec';
+  // Posts directly to the Google Form — no Apps Script needed.
+  // Google Forms always returns a redirect (CORS opaque), so we use
+  // no-cors mode and assume success if the request doesn't throw.
+  const GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeQ0wvGHc99TmOThG9Zyi3KAXugjL_yrPPj6MbrZfKYlEMVYg/formResponse';
 
-  const form    = document.getElementById('abstract-form');
-  const btn     = document.getElementById('submit-btn');
+  const form     = document.getElementById('abstract-form');
+  const btn      = document.getElementById('submit-btn');
   const statusEl = document.getElementById('status-msg');
 
   form.addEventListener('submit', async function (e) {
@@ -277,34 +279,45 @@
     btn.textContent = 'Submitting…';
     hideStatus();
 
-    const params = new URLSearchParams({
-      name, email, school, title, abstract,
-      coauthors: document.getElementById('coauthors').value.trim()
-    });
+    // Map our fields to Google Form entry IDs
+    const nameParts = name.split(/\s+/);
+    const firstName = nameParts[0];
+    const lastName  = nameParts.slice(1).join(' ');
+
+    const params = new URLSearchParams();
+    params.append('entry.639871525',  title);         // Poster Title
+    params.append('entry.1829674523', 'Other');       // Category
+    params.append('entry.214755950',  abstract);      // Abstract
+    params.append('entry.1998708711', school);        // Institution
+    params.append('entry.276147463',  firstName);     // Primary Author — First Name
+    params.append('entry.319824987',  lastName);      // Primary Author — Last Name
+    params.append('entry.1552439049', email);         // Primary Author — Email
+    // Confirm checkboxes — both options must be appended separately
+    params.append('entry.1776513109', 'This submission represents original student work.');
+    params.append('entry.1776513109', 'The presenting author will attend the event in person on November 13, 2026 at Vassar College.');
 
     try {
-      const res = await fetch(ENDPOINT, {
-        method:  'POST',
-        body:    params,
+      // no-cors: Google Forms returns an opaque redirect — we can't read
+      // the response, but the submission lands in the sheet correctly.
+      await fetch(GFORM_URL, {
+        method: 'POST',
+        mode:   'no-cors',
+        body:   params,
       });
 
-      const data = await res.json();
+      // Treat reaching here as success (fetch only throws on network error)
+      form.style.display = 'none';
+      showStatus('success',
+        '✅ <strong>Submission received!</strong> Thank you, ' + firstName + '.' +
+        ' We\'ll be in touch by <strong>November 6</strong> with acceptance notifications.' +
+        ' Questions? Email <a href="mailto:mhvtechmeet@gmail.com">mhvtechmeet@gmail.com</a>.');
 
-      if (data.status === 'ok') {
-        form.style.display = 'none';
-        showStatus('success',
-          '✅ <strong>Submission received!</strong> Thank you, ' + name.split(' ')[0] + '.' +
-          ' A confirmation has been sent to <strong>' + email + '</strong>.' +
-          ' We\'ll be in touch by <strong>November 6</strong> with acceptance notifications.');
-      } else {
-        throw new Error(data.message || 'Unknown error');
-      }
     } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Submit Abstract →';
       showStatus('error',
-        'Something went wrong (' + err.message + '). ' +
-        'Please try again or email <a href="mailto:mhvtechmeet@gmail.com">mhvtechmeet@gmail.com</a>.');
+        'Network error — please check your connection and try again, or email ' +
+        '<a href="mailto:mhvtechmeet@gmail.com">mhvtechmeet@gmail.com</a>.');
     }
   });
 
