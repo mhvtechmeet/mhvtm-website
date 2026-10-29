@@ -273,12 +273,6 @@
       return;
     }
 
-    const words = abstract.split(/\s+/).length;
-    if (words < 50) {
-      showStatus('error', 'Your abstract is very short (' + words + ' words). Please aim for 150–200 words.');
-      return;
-    }
-
     btn.disabled = true;
     btn.textContent = 'Submitting…';
     hideStatus();
