@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Submit your abstract for MHV TechMeet 2026 — Friday, November 13, Vassar College.">
+  <title>Submit an Abstract — MHV TechMeet 2026</title>
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── page-level overrides for the submission form ── */
+    .submit-wrap {
+      max-width: 640px;
+      margin: 32px auto 48px;
+      padding: 0 16px;
+    }
+
+    .submit-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+      padding: 36px 32px 32px;
+    }
+
+    .submit-card h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+    }
+
+    .submit-card .sub {
+      color: #555;
+      margin: -8px 0 28px;
+      font-size: 0.97rem;
+    }
+
+    .field-group {
+      margin-bottom: 20px;
+    }
+
+    .field-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 0.93rem;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .field-group .hint {
+      font-size: 0.82rem;
+      color: #777;
+      margin: 3px 0 6px;
+    }
+
+    .field-group input,
+    .field-group select,
+    .field-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      font-size: 1rem;
+      font-family: Arial, sans-serif;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    .field-group input:focus,
+    .field-group select:focus,
+    .field-group textarea:focus {
+      outline: none;
+      border-color: #005f6b;
+      background: #fff;
+    }
+
+    .field-group textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .word-count {
+      font-size: 0.82rem;
+      color: #777;
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    .word-count.over {
+      color: #c0392b;
+      font-weight: bold;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      font-size: 1.08rem;
+      font-weight: bold;
+      background: #005f6b;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: #007a8a;
+    }
+
+    .submit-btn:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    /* status messages */
+    #status-msg {
+      display: none;
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 7px;
+      font-size: 0.97rem;
+    }
+
+    #status-msg.success {
+      background: #e6f4f1;
+      border: 1px solid #00897b;
+      color: #005f6b;
+    }
+
+    #status-msg.error {
+      background: #fdecea;
+      border: 1px solid #e57373;
+      color: #b71c1c;
+    }
+
+    /* deadline pill */
+    .deadline-pill {
+      display: inline-block;
+      background: #e9f7f6;
+      color: #005f6b;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 520px) {
+      .submit-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="landing-header">
+  <div class="brand-lockup">
+    <img class="site-logo" src="assets/logo-candidates/image4-lightblue.png" alt="Mid-Hudson Valley TechMeet logo">
+    <div class="brand-copy">
+      <h1>Mid-Hudson Valley TechMeet</h1>
+      <p class="tagline">Innovate. Connect. Inspire.</p>
+    </div>
+  </div>
+  <div class="event-year">3rd Annual TechMeet · 2026</div>
+  <h2>Friday, November 13, 2026</h2>
+  <p><b>Vassar College · Poughkeepsie, New York</b></p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="mhvtm25.html">MHVTM 2025</a>
+  <a href="mhvtm24.html">MHVTM 2024</a>
+  <a href="about.html">About</a>
+</nav>
+
+<div class="submit-wrap">
+  <div class="submit-card">
+
+    <h2>Submit Your Abstract</h2>
+    <p class="sub">Takes about 5 minutes. Course projects, research, capstones, and independent work all qualify.</p>
+    <div class="deadline-pill">⏰ Deadline: Friday, October 30, 2026</div>
+
+    <form id="abstract-form" novalidate>
+
+      <div class="field-group">
+        <label for="name">Your Name <span style="color:#c0392b">*</span></label>
+        <input type="text" id="name" name="name" placeholder="First Last" required autocomplete="name">
+      </div>
+
+      <div class="field-group">
+        <label for="email">Email Address <span style="color:#c0392b">*</span></label>
+        <div class="hint">We'll send a confirmation to this address.</div>
+        <input type="email" id="email" name="email" placeholder="you@university.edu" required autocomplete="email">
+      </div>
+
+      <div class="field-group">
+        <label for="school">School / Institution <span style="color:#c0392b">*</span></label>
+        <input type="text" id="school" name="school" placeholder="e.g. Vassar College" required autocomplete="organization">
+      </div>
+
+      <div class="field-group">
+        <label for="title">Project / Poster Title <span style="color:#c0392b">*</span></label>
+        <input type="text" id="title" name="title" placeholder="e.g. Detecting Phishing Emails with BERT" required>
+      </div>
+
+      <div class="field-group">
+        <label for="abstract">Abstract <span style="color:#c0392b">*</span></label>
+        <div class="hint">150–200 words. What you built, why it matters, how you approached it.</div>
+        <textarea id="abstract" name="abstract" placeholder="Describe your project in 150–200 words…" required></textarea>
+        <div class="word-count" id="wc">0 words</div>
+      </div>
+
+      <div class="field-group">
+        <label for="coauthors">Co-authors <span style="color:#888;font-weight:normal">(optional)</span></label>
+        <input type="text" id="coauthors" name="coauthors" placeholder="e.g. Jane Smith, Alex Lee">
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">Submit Abstract →</button>
+
+    </form>
+
+    <div id="status-msg"></div>
+
+  </div>
+</div>
+
+<footer style="text-align:center;padding:20px;font-size:0.85rem;color:#777;">
+  Questions? Email <a href="mailto:mhvtechmeet@gmail.com">mhvtechmeet@gmail.com</a>
+  &nbsp;·&nbsp;
+  <a href="index.html">Back to main site</a>
+</footer>
+
+<script>
+  // ── word counter ──────────────────────────────────────────────
+  const abstractEl = document.getElementById('abstract');
+  const wcEl       = document.getElementById('wc');
+
+  function updateWC() {
+    const words = abstractEl.value.trim() === '' ? 0
+      : abstractEl.value.trim().split(/\s+/).length;
+    wcEl.textContent = words + ' word' + (words !== 1 ? 's' : '');
+    wcEl.className = 'word-count' + (words > 250 ? ' over' : '');
+  }
+  abstractEl.addEventListener('input', updateWC);
+
+  // ── form submission ───────────────────────────────────────────
+  // PASTE YOUR APPS SCRIPT WEB APP URL HERE (see submit-endpoint.gs):
+  const ENDPOINT = 'APPS_SCRIPT_URL_PLACEHOLDER';
+
+  const form    = document.getElementById('abstract-form');
+  const btn     = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('status-msg');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // basic client-side validation
+    const name     = document.getElementById('name').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const school   = document.getElementById('school').value.trim();
+    const title    = document.getElementById('title').value.trim();
+    const abstract = abstractEl.value.trim();
+
+    if (!name || !email || !school || !title || !abstract) {
+      showStatus('error', 'Please fill in all required fields before submitting.');
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showStatus('error', 'Please enter a valid email address.');
+      return;
+    }
+
+    const words = abstract.split(/\s+/).length;
+    if (words < 50) {
+      showStatus('error', 'Your abstract is very short (' + words + ' words). Please aim for 150–200 words.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+    hideStatus();
+
+    const payload = { name, email, school, title, abstract,
+                      coauthors: document.getElementById('coauthors').value.trim() };
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (data.status === 'ok') {
+        form.style.display = 'none';
+        showStatus('success',
+          '✅ <strong>Submission received!</strong> Thank you, ' + name.split(' ')[0] + '.' +
+          ' A confirmation has been sent to <strong>' + email + '</strong>.' +
+          ' We\'ll be in touch by <strong>November 6</strong> with acceptance notifications.');
+      } else {
+        throw new Error(data.message || 'Unknown error');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Submit Abstract →';
+      showStatus('error',
+        'Something went wrong (' + err.message + '). ' +
+        'Please try again or email <a href="mailto:mhvtechmeet@gmail.com">mhvtechmeet@gmail.com</a>.');
+    }
+  });
+
+  function showStatus(type, html) {
+    statusEl.className = type;
+    statusEl.innerHTML = html;
+    statusEl.style.display = 'block';
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function hideStatus() {
+    statusEl.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
