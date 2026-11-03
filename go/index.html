@@ -175,10 +175,11 @@ footer { text-align: center; font-size: 11px; color: #57606a; padding: 20px 0 24
   <div id="score-project-hdr" class="hdr"></div>
   <div id="score-walkup-note" class="alert info" style="display:none">This poster is not in your assigned list. Your score will be marked as a walk-up and may be reviewed by the organizer.</div>
   <div id="score-closed" class="alert warn" style="display:none">Judging is closed — you can view but not change scores.</div>
-  <div id="score-err" class="alert err" style="display:none"></div>
-  <div id="score-ok" class="alert ok" style="display:none"></div>
   <div id="rubric-form"></div>
   <div id="score-spinner" class="spinner" style="display:none">Saving…</div>
+  <div id="score-err" class="alert err" style="display:none"></div>
+  <div id="score-ok" class="alert ok" style="display:none"></div>
+  <button class="btn secondary" id="score-back-btn" onclick="showHome()">← Back to My posters</button>
 </div>
 
 <footer>MHV TechMeet 2026 · Judge access only · Made with IBM Bob</footer>
@@ -378,13 +379,13 @@ function renderScoreForm(data) {
   // total bar
   html += '<div class="total-bar" id="total-bar" style="display:none">';
   html += '<span>Total</span><span class="val" id="total-val"></span></div>';
+  html += '</div>';  // close coi-hide
 
-  // action buttons
+  // action buttons (outside coi-hide so a conflict of interest can be saved)
   if (open) {
     html += '<button class="btn secondary" id="draft-btn" onclick="doSave(false)">Save draft</button>';
     html += '<button class="btn" id="submit-btn" onclick="doSave(true)" disabled>Submit score</button>';
   }
-  html += '</div>';  // close coi-hide
 
   document.getElementById("rubric-form").innerHTML = html;
   updateTotal();
@@ -424,7 +425,12 @@ function updateTotal() {
     if (valEl) valEl.textContent = _coi ? "COI" : (total + " / 25");
   }
   var sub = document.getElementById("submit-btn");
-  if (sub) sub.disabled = !allScored && !_coi;
+  if (sub) {
+    sub.disabled = !allScored && !_coi;
+    sub.textContent = _coi ? "Report conflict" : "Submit score";
+  }
+  var draft = document.getElementById("draft-btn");
+  if (draft) draft.style.display = _coi ? "none" : "";
 }
 
 function doSave(submit) {
@@ -457,10 +463,11 @@ function doSave(submit) {
       ? "Score submitted! Total: " + (data.saved.total !== null ? data.saved.total + " / 25" : "COI recorded")
       : "Draft saved.";
     showMsg("score-ok", msg);
+    scrollToEl("score-ok");
     // update chip on home list
     loadHome();
   })
-  .catch(function(e) { showErr("score-err", e.message); })
+  .catch(function(e) { showErr("score-err", e.message); scrollToEl("score-err"); })
   .finally(function() {
     hideEl("score-spinner");
     ["draft-btn","submit-btn"].forEach(function(id) {
@@ -474,6 +481,7 @@ function doSave(submit) {
 function esc(s) {
   return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
+function scrollToEl(id) { var e = document.getElementById(id); if (e && e.scrollIntoView) e.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
 function showEl(id)  { var e = document.getElementById(id); if (e) e.style.display = ""; }
 function hideEl(id)  { var e = document.getElementById(id); if (e) e.style.display = "none"; }
 function showErr(id, msg) { var e = document.getElementById(id); if (e) { e.textContent = msg; e.style.display = ""; } }
