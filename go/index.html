@@ -79,6 +79,15 @@ textarea:focus { border-color: #005f6b; }
 .poster-card .ptitle { font-size: 15px; font-weight: 600; line-height: 1.3; color: #1f2328; }
 .poster-card .pcat { font-size: 12px; color: #57606a; margin-top: 2px; }
 
+/* ── find another poster ── */
+.find-help { font-size: 12px; color: #57606a; margin-bottom: 10px; }
+.find-row { display: flex; gap: 8px; align-items: stretch; }
+.find-row input[type=text] { flex: 1; min-width: 0; font-size: 16px; letter-spacing: normal; }
+.find-row .btn.sm { padding: 0 16px; font-size: 15px; }
+#find-suggest { margin-top: 10px; }
+#find-suggest .poster-card { margin-bottom: 8px; }
+.find-none { font-size: 13px; color: #57606a; }
+
 /* ── rubric ── */
 .criterion { margin-bottom: 18px; }
 .criterion .qtext { font-size: 14px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
@@ -166,6 +175,16 @@ footer { text-align: center; font-size: 11px; color: #57606a; padding: 20px 0 24
   <div id="home-err" class="alert err" style="display:none"></div>
   <div id="poster-list"></div>
   <div id="home-spinner" class="spinner" style="display:none">Loading your posters…</div>
+  <div class="card" id="find-card">
+    <label for="find-input">Find another poster</label>
+    <p class="find-help">Type a poster number or a word from the title, then tap a poster. Or scan the QR code on the poster.</p>
+    <div class="find-row">
+      <input id="find-input" type="text" maxlength="60" autocomplete="off" autocorrect="off" autocapitalize="none"
+             spellcheck="false" placeholder="e.g. 12, or a word from the title" oninput="showFindSuggestions()" onkeydown="if(event.key==='Enter')openTyped()">
+      <button class="btn secondary sm" onclick="openTyped()">Open</button>
+    </div>
+    <div id="find-suggest"></div>
+  </div>
   <button class="btn secondary" id="refresh-btn" onclick="loadHome()" style="margin-top:4px">↻ Refresh list</button>
 </div>
 
@@ -284,6 +303,7 @@ function onHomeData(data) {
     data.posters.length + " poster" + (data.posters.length !== 1 ? "s" : "") + " assigned to you";
   document.getElementById("home-closed").style.display = data.open ? "none" : "";
   renderPosterList(data.posters);
+  showFindSuggestions();
   if (data.test) document.getElementById("test-banner").style.display = "";
 }
 
@@ -305,6 +325,55 @@ function renderPosterList(posters) {
       '<div class="pcat">' + esc(p.category) + '</div>' +
       '</div>';
   }).join("");
+}
+
+// ── FIND ANOTHER POSTER (walk-ups) ────────────────────────────────────────────
+// Matches the id, the number ("12" finds P012 and P120), the title and the category.
+// Posters already on the judge's list are left out. Needs the server's `catalog` in the home
+// response; without it only the typed number + Open button works.
+function matchPosters(catalog, query, skip, limit) {
+  var q = String(query || "").trim().toLowerCase();
+  if (!q) return [];
+  var digits = /^\d+$/.test(q) ? q.replace(/^0+/, "") : "";
+  var skipSet = {};
+  (skip || []).forEach(function(id) { skipSet[id] = true; });
+  var byId = [], byText = [];
+  (catalog || []).forEach(function(p) {
+    if (skipSet[p.id]) return;
+    var id = String(p.id).toLowerCase();
+    var num = (id.match(/(\d+)$/) || [, ""])[1].replace(/^0+/, "");
+    if (id.indexOf(q) >= 0 || (digits && num.indexOf(digits) === 0)) byId.push(p);
+    else if ((String(p.title) + " " + String(p.category)).toLowerCase().indexOf(q) >= 0) byText.push(p);
+  });
+  return byId.concat(byText).slice(0, limit || 8);
+}
+
+function showFindSuggestions() {
+  var box = document.getElementById("find-suggest");
+  var text = document.getElementById("find-input").value;
+  var mine = ((_homeData && _homeData.posters) || []).map(function(p) { return p.id; });
+  var hits = matchPosters((_homeData && _homeData.catalog) || [], text, mine, 8);
+  box.innerHTML = hits.map(function(p) {
+    return '<div class="poster-card" onclick="openFound(\'' + esc(p.id) + '\')">' +
+      '<div class="pid">' + esc(p.id) + '</div>' +
+      '<div class="ptitle">' + esc(p.title) + '</div>' +
+      '<div class="pcat">' + esc(p.category) + '</div></div>';
+  }).join("");
+  if (text.trim() && !hits.length) {
+    box.innerHTML = '<div class="find-none">No other poster matches. Check the number, or tap Open to try it anyway.</div>';
+  }
+}
+
+function clearFind() {
+  document.getElementById("find-input").value = "";
+  document.getElementById("find-suggest").innerHTML = "";
+}
+function openFound(pid) { clearFind(); openPoster(pid); }
+function openTyped() {
+  var v = document.getElementById("find-input").value.trim();
+  if (!v) return;
+  clearFind();
+  openPoster(v);
 }
 
 // ── SCORING FORM ──────────────────────────────────────────────────────────────
