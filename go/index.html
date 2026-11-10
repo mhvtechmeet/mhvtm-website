@@ -69,6 +69,7 @@ textarea:focus { border-color: #005f6b; }
 .chip.submitted { background: #e6f4ea; color: #1b5e20; }
 .chip.draft     { background: #fff8e1; color: #7c4d00; }
 .chip.coi       { background: #fce4ec; color: #880e4f; }
+.chip.noshow    { background: #fedcdb; color: #cf222e; }
 .chip.walkup    { background: #e8eaf6; color: #283593; }
 
 /* ── poster list ── */
@@ -215,6 +216,7 @@ var _homeData = null;   // last home response
 var _scoreData = null;  // last project detail response
 var _scores = {};       // { criterionKey: 1-5 }
 var _coi = false;
+var _no_show = false;
 var _judging_open = true;
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────
@@ -318,6 +320,7 @@ function renderPosterList(posters) {
     if (p.status === "submitted") chip = '<span class="chip submitted">Submitted ' + (p.total !== null ? p.total + "/25" : "✓") + '</span>';
     else if (p.status === "draft") chip = '<span class="chip draft">Draft</span>';
     else if (p.status === "coi")   chip = '<span class="chip coi">COI</span>';
+    else if (p.status === "no_show") chip = '<span class="chip noshow">No-Show</span>';
     if (p.walkUp) chip += '<span class="chip walkup">Walk-up</span>';
     return '<div class="poster-card" onclick="openPoster(\'' + esc(p.id) + '\')">' +
       '<div class="pid">' + esc(p.id) + chip + '</div>' +
@@ -388,9 +391,11 @@ function openPoster(pid) {
       _scoreData = data;
       _scores = {};
       _coi = false;
+      _no_show = false;
       if (data.project.score) {
         _scores = data.project.score.scores || {};
         _coi = !!data.project.score.coi;
+        _no_show = !!data.project.score.no_show || data.project.score.status === "no_show";
       }
       renderScoreForm(data);
     })
@@ -414,15 +419,19 @@ function renderScoreForm(data) {
   var rubric = data.rubric ? data.rubric.criteria : [];
   var html = "";
 
-  // COI checkbox
+  // COI & No-Show checkboxes
   html += '<div class="card">';
   html += '<div class="coi-row">';
   html += '<input type="checkbox" id="coi-cb"' + (_coi ? " checked" : "") + (open ? "" : " disabled") + ' onchange="onCoiChange()">';
   html += '<label for="coi-cb">I have a conflict of interest with this poster and cannot score it fairly.</label>';
+  html += '</div>';
+  html += '<div class="coi-row" style="margin-top:10px">';
+  html += '<input type="checkbox" id="noshow-cb"' + (_no_show ? " checked" : "") + (open ? "" : " disabled") + ' onchange="onNoShowChange()">';
+  html += '<label for="noshow-cb">Presenter or poster is a no-show (did not present). Skip scoring and alert the organizer.</label>';
   html += '</div></div>';
 
   // rubric criteria
-  html += '<div id="coi-hide"' + (_coi ? ' style="display:none"' : "") + '>';
+  html += '<div id="coi-hide"' + ((_coi || _no_show) ? ' style="display:none"' : "") + '>';
   rubric.forEach(function(c) {
     var cur = _scores[c.key] || 0;
     html += '<div class="card criterion" id="crit-' + esc(c.key) + '">';
@@ -462,8 +471,25 @@ function renderScoreForm(data) {
 
 function onCoiChange() {
   _coi = document.getElementById("coi-cb").checked;
+  if (_coi) {
+    _no_show = false;
+    var nsEl = document.getElementById("noshow-cb");
+    if (nsEl) nsEl.checked = false;
+  }
   var hide = document.getElementById("coi-hide");
-  if (hide) hide.style.display = _coi ? "none" : "";
+  if (hide) hide.style.display = (_coi || _no_show) ? "none" : "";
+  updateTotal();
+}
+
+function onNoShowChange() {
+  _no_show = document.getElementById("noshow-cb").checked;
+  if (_no_show) {
+    _coi = false;
+    var coiEl = document.getElementById("coi-cb");
+    if (coiEl) coiEl.checked = false;
+  }
+  var hide = document.getElementById("coi-hide");
+  if (hide) hide.style.display = (_coi || _no_show) ? "none" : "";
   updateTotal();
 }
 
@@ -484,22 +510,23 @@ function setScore(key, val) {
 function updateTotal() {
   if (!_scoreData) return;
   var rubric = (_scoreData.rubric || {}).criteria || [];
-  var allScored = !_coi && rubric.length > 0 && rubric.every(function(c) { return _scores[c.key]; });
+  var isSpecial = _coi || _no_show;
+  var allScored = !isSpecial && rubric.length > 0 && rubric.every(function(c) { return _scores[c.key]; });
   var total = allScored ? rubric.reduce(function(s, c) { return s + (_scores[c.key] || 0); }, 0) : null;
 
   var bar = document.getElementById("total-bar");
   if (bar) {
-    bar.style.display = (allScored || _coi) ? "" : "none";
+    bar.style.display = (allScored || isSpecial) ? "" : "none";
     var valEl = document.getElementById("total-val");
-    if (valEl) valEl.textContent = _coi ? "COI" : (total + " / 25");
+    if (valEl) valEl.textContent = _no_show ? "NO-SHOW" : (_coi ? "COI" : (total + " / 25"));
   }
   var sub = document.getElementById("submit-btn");
   if (sub) {
-    sub.disabled = !allScored && !_coi;
-    sub.textContent = _coi ? "Report conflict" : "Submit score";
+    sub.disabled = !allScored && !isSpecial;
+    sub.textContent = _no_show ? "Report no-show" : (_coi ? "Report conflict" : "Submit score");
   }
   var draft = document.getElementById("draft-btn");
-  if (draft) draft.style.display = _coi ? "none" : "";
+  if (draft) draft.style.display = isSpecial ? "none" : "";
 }
 
 function doSave(submit) {
@@ -520,17 +547,20 @@ function doSave(submit) {
       action: "save",
       credential: _cred,
       project: _scoreData.project.id,
-      scores: scorePayload,
+      scores: (_coi || _no_show) ? {} : scorePayload,
       comment: (document.getElementById("comment-box") || {}).value || "",
       coi: _coi,
+      no_show: _no_show,
       submit: submit,
       source: "digital-spa"
     })
   })
   .then(function(data) {
-    var msg = submit
-      ? "Score submitted! Total: " + (data.saved.total !== null ? data.saved.total + " / 25" : "COI recorded")
-      : "Draft saved.";
+    var msg = _no_show
+      ? "No-show reported for this poster."
+      : (submit
+        ? "Score submitted! Total: " + (data.saved.total !== null ? data.saved.total + " / 25" : "COI recorded")
+        : "Draft saved.");
     showMsg("score-ok", msg);
     scrollToEl("score-ok");
     // update chip on home list
