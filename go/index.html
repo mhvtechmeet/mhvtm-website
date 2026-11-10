@@ -322,8 +322,9 @@ function renderPosterList(posters) {
     else if (p.status === "coi")   chip = '<span class="chip coi">COI</span>';
     else if (p.status === "no_show") chip = '<span class="chip noshow">No-Show</span>';
     if (p.walkUp) chip += '<span class="chip walkup">Walk-up</span>';
+    var label = (p.cid ? p.cid + " · " : "") + p.id;
     return '<div class="poster-card" onclick="openPoster(\'' + esc(p.id) + '\')">' +
-      '<div class="pid">' + esc(p.id) + chip + '</div>' +
+      '<div class="pid">' + esc(label) + chip + '</div>' +
       '<div class="ptitle">' + esc(p.title) + '</div>' +
       '<div class="pcat">' + esc(p.category) + '</div>' +
       '</div>';
@@ -344,8 +345,9 @@ function matchPosters(catalog, query, skip, limit) {
   (catalog || []).forEach(function(p) {
     if (skipSet[p.id]) return;
     var id = String(p.id).toLowerCase();
+    var cid = String(p.cid || "").toLowerCase();
     var num = (id.match(/(\d+)$/) || [, ""])[1].replace(/^0+/, "");
-    if (id.indexOf(q) >= 0 || (digits && num.indexOf(digits) === 0)) byId.push(p);
+    if (id.indexOf(q) >= 0 || (cid && cid.indexOf(q) >= 0) || (digits && num.indexOf(digits) === 0)) byId.push(p);
     else if ((String(p.title) + " " + String(p.category)).toLowerCase().indexOf(q) >= 0) byText.push(p);
   });
   return byId.concat(byText).slice(0, limit || 8);
@@ -357,8 +359,9 @@ function showFindSuggestions() {
   var mine = ((_homeData && _homeData.posters) || []).map(function(p) { return p.id; });
   var hits = matchPosters((_homeData && _homeData.catalog) || [], text, mine, 8);
   box.innerHTML = hits.map(function(p) {
+    var label = (p.cid ? p.cid + " · " : "") + p.id;
     return '<div class="poster-card" onclick="openFound(\'' + esc(p.id) + '\')">' +
-      '<div class="pid">' + esc(p.id) + '</div>' +
+      '<div class="pid">' + esc(label) + '</div>' +
       '<div class="ptitle">' + esc(p.title) + '</div>' +
       '<div class="pcat">' + esc(p.category) + '</div></div>';
   }).join("");
@@ -408,9 +411,10 @@ function renderScoreForm(data) {
   var open = data.open;
 
   // header
+  var label = (p.cid ? p.cid + " · " : "") + p.id;
   document.getElementById("score-project-hdr").innerHTML =
     '<div class="event">' + esc(p.category) + '</div>' +
-    '<h1>' + esc(p.id) + '</h1>' +
+    '<h1>' + esc(label) + '</h1>' +
     '<p class="sub">' + esc(p.title) + '</p>';
 
   document.getElementById("score-walkup-note").style.display = (!p.assigned && !p.rejected) ? "" : "none";
