@@ -690,3 +690,112 @@ footer h3 {
   color: #555;
   margin: 0 0 12px;
 }
+
+/* ---------- Posters page: collapsible abstracts ---------- */
+
+.cat-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-left: 8px;
+}
+
+.cat-blurb {
+  margin: 0 0 12px;
+  color: #475569;
+}
+
+.posters-actions .button {
+  margin: 4px 8px 4px 0;
+}
+
+details.poster-entry {
+  background: #f1f8f8;
+  border: 1px solid #d1e7e3;
+  border-radius: 7px;
+  margin-bottom: 8px;
+}
+
+details.poster-entry[open] {
+  background: #ffffff;
+  border-color: #005f6b;
+}
+
+details.poster-entry summary {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+
+details.poster-entry summary::-webkit-details-marker {
+  display: none;
+}
+
+details.poster-entry summary::after {
+  content: "+";
+  margin-left: auto;
+  font-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #005f6b;
+}
+
+details.poster-entry[open] summary::after {
+  content: "\2212";
+}
+
+details.poster-entry summary:focus-visible {
+  outline: 2px solid #005f6b;
+  outline-offset: 2px;
+}
+
+.poster-id {
+  flex-shrink: 0;
+  min-width: 3.4rem;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: #005f6b;
+}
+
+.poster-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.poster-title {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.poster-meta {
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.poster-abstract {
+  padding: 0 14px 14px 14px;
+  margin-left: 3.4rem;
+  border-top: 1px solid #d1e7e3;
+}
+
+.poster-abstract h4 {
+  margin: 10px 0 6px;
+  color: #005f6b;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.poster-abstract p {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 700px) {
+  .poster-abstract {
+    margin-left: 0;
+  }
+}
