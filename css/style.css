@@ -691,7 +691,7 @@ footer h3 {
   margin: 0 0 12px;
 }
 
-/* ---------- Posters page: collapsible abstracts ---------- */
+/* ---------- Posters page: poster tables with abstract twisties ---------- */
 
 .cat-count {
   font-size: 0.8rem;
@@ -709,93 +709,107 @@ footer h3 {
   margin: 4px 8px 4px 0;
 }
 
-details.poster-entry {
-  background: #f1f8f8;
-  border: 1px solid #d1e7e3;
-  border-radius: 7px;
-  margin-bottom: 8px;
+.poster-table th.col-twistie,
+.poster-table td.col-twistie {
+  width: 2.2rem;
+  padding-right: 0;
+  text-align: center;
 }
 
-details.poster-entry[open] {
-  background: #ffffff;
-  border-color: #005f6b;
+.poster-table th.col-id,
+.poster-table td.col-id {
+  width: 4.6rem;
+  white-space: nowrap;
 }
 
-details.poster-entry summary {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px 14px;
-  cursor: pointer;
-  list-style: none;
-}
-
-details.poster-entry summary::-webkit-details-marker {
-  display: none;
-}
-
-details.poster-entry summary::after {
-  content: "+";
-  margin-left: auto;
-  font-weight: 800;
-  font-size: 1.2rem;
-  line-height: 1;
-  color: #005f6b;
-}
-
-details.poster-entry[open] summary::after {
-  content: "\2212";
-}
-
-details.poster-entry summary:focus-visible {
-  outline: 2px solid #005f6b;
-  outline-offset: 2px;
-}
-
-.poster-id {
-  flex-shrink: 0;
-  min-width: 3.4rem;
+.poster-table td.col-id {
   font-family: ui-monospace, Menlo, Consolas, monospace;
   font-weight: 700;
   color: #005f6b;
 }
 
-.poster-summary-text {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.poster-title {
-  font-weight: 700;
+.poster-table td.col-title {
+  font-weight: 600;
   color: #0f172a;
 }
 
-.poster-meta {
-  font-size: 0.88rem;
-  color: #475569;
+.twistie {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1;
+  color: #005f6b;
 }
 
-.poster-abstract {
-  padding: 0 14px 14px 14px;
-  margin-left: 3.4rem;
-  border-top: 1px solid #d1e7e3;
+.twistie::before {
+  content: "\25B6";
+  display: inline-block;
+  transition: transform 0.15s ease;
 }
 
-.poster-abstract h4 {
-  margin: 10px 0 6px;
+.twistie[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.twistie:focus-visible {
+  outline: 2px solid #005f6b;
+  outline-offset: 2px;
+}
+
+.poster-table tr.abstract-row td {
+  background: #ffffff;
+  border-top: 0;
+  padding: 4px 16px 14px 3.4rem;
+}
+
+.poster-table tr.abstract-row[hidden] {
+  display: none;
+}
+
+.abstract-box h4 {
+  margin: 4px 0 6px;
   color: #005f6b;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.poster-abstract p {
+.abstract-box p {
   margin: 0 0 8px;
 }
 
+.poster-table tr.poster-row:target td {
+  background: #fff8d6;
+}
+
 @media (max-width: 700px) {
-  .poster-abstract {
-    margin-left: 0;
+  .poster-table tr.abstract-row td {
+    padding-left: 12px;
   }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Directions */
+#directions ol {
+  padding-left: 1.4em;
+}
+
+#directions .route-map {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 520px;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
 }
