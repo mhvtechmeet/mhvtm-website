@@ -924,3 +924,9 @@ footer h3 {
 .abstract-close:focus-visible {
   color: #0f172a;
 }
+
+.next-year {
+  margin: 20px 0 0;
+  text-align: center;
+  color: #475569;
+}
