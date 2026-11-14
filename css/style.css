@@ -813,3 +813,43 @@ footer h3 {
   border: 1px solid #d0d7de;
   border-radius: 4px;
 }
+
+/* ---------- Winners / Participation Certificates ---------- */
+
+.placeholder {
+  color: #94a3b8;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.winners-table td.col-award {
+  font-weight: 700;
+  white-space: nowrap;
+  color: #005f6b;
+}
+
+/* ---------- Quick links (pills) ---------- */
+
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pill-link {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #005f6b;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.pill-link:hover,
+.pill-link:focus-visible {
+  background-color: #008fc5;
+  color: #fff;
+}
