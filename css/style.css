@@ -853,3 +853,74 @@ footer h3 {
   background-color: #008fc5;
   color: #fff;
 }
+
+/* ---------- Abstract pop-up ---------- */
+
+.abstract-link {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: #005f6b;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.abstract-link:hover,
+.abstract-link:focus-visible {
+  color: #008fc5;
+}
+
+.abstract-dialog {
+  max-width: 720px;
+  width: calc(100% - 32px);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px 28px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  color: #1f2328;
+}
+
+.abstract-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.abstract-dialog h3 {
+  margin: 4px 0 8px;
+  color: #0f172a;
+}
+
+.abstract-dialog .abstract-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #005f6b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.abstract-dialog .abstract-people {
+  margin: 0 0 14px;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.abstract-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  appearance: none;
+  background: none;
+  border: 0;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #475569;
+  cursor: pointer;
+}
+
+.abstract-close:hover,
+.abstract-close:focus-visible {
+  color: #0f172a;
+}
